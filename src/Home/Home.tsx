@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styles from "./Home.module.scss"
 import axios from "axios"
 import { readableDateTime } from "../utils";
+import logo from "./company.png"
 
 const Loader: React.FC = () => {
     return (
@@ -26,7 +27,7 @@ const Listing: React.FC<{ props: any }> = ({ props }) => {
             <div style={{ padding: "14px" }}>
                 <div className={styles.profile}> 
                     <div className={styles.icon}> 
-                        <img style={{ width: "100%", height: "100%"}} src={props.image} alt="Attachment" /> 
+                        <img style={{ filter: "invert(70%)", width: "100%", height: "100%"}} src={logo} alt="Attachment" /> 
                     </div>
                     <div>
                         <p className={styles.name}>{props.title}</p>

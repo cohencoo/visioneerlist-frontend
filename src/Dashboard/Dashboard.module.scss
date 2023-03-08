@@ -399,6 +399,15 @@
   border-bottom: none;
 }
 
+.createProfileFlex {
+  display: flex;
+  align-items: center;
+
+  span {
+    margin-right: 1rem;
+    font-size: 2rem;
+  }
+}
 
 .create-profile {
   background: transparent;
@@ -444,4 +453,40 @@
   padding: 2.5rem 15px 15px 2.5rem;
   border-radius: 0 0 1rem 0;
   clip-path: polygon(100% 0, 0 100%, 100% 100%);
+}
+
+input[type="checkbox"] {
+  width: 1.5rem;
+  height: 1.5rem;
+  background-color: var(--shade-3);
+  border: 0;
+  border-radius: 5px;
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+input[type="checkbox"]:checked {
+  background-color: var(--link);
+  box-shadow: 0 0 0 5px rgba(255, 255, 255, 0.1);
+}
+
+input[type="checkbox"]+label {
+  margin-left: 10px;
+  font-size: 16px;
+}
+
+.Dashboard button {
+  padding: 1rem 3rem 1rem 3rem;
+  font-size: 1.1rem;
+  color: white;
+  font-family: inherit;
+  background: var(--link);
+  border-radius: 10px;
+  width: 100%;
+  margin-top: 2rem;
+  border: none;
+  outline: none;
 }

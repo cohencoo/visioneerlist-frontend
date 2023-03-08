@@ -1,3 +1,11 @@
+export function uuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+        var r = (Math.random() * 16) | 0,
+            v = c === 'x' ? r : (r & 0x3) | 0x8;
+        return v.toString(16);
+    });
+}
+
 export function readableDateTime(time: any) {
     const now = new Date();
     const diff = Number(now) - time;
@@ -25,4 +33,33 @@ export function readableDateTime(time: any) {
 export function fixURL(URL: any) {
     if (URL?.includes("http://") || URL?.includes("https://")) return URL;
     else return "https://" + URL;
+}
+
+
+export function compression(imageSize: any, targetSizeMB: any) {
+    const targetSizeBytes = targetSizeMB * 1000000; // 1MB = 1000000 bytes
+    if (imageSize <= targetSizeBytes) return 1;
+  
+    return targetSizeBytes / imageSize;
+}
+
+export function compress(dataUrl: any, scaleRatio: any, imageArguments: any, imageType: any, callback: any) {
+    let image: CanvasImageSource, oldWidth, oldHeight, newWidth, newHeight, canvas, ctx, newDataUrl;
+    imageType = imageType || "image/jpeg";
+    imageArguments = imageArguments || 1;
+    image = new Image();
+    image.onload = function() {
+        oldWidth = image.width;
+        oldHeight = image.height;
+        newWidth = Math.floor(Number(oldWidth) * scaleRatio);
+        newHeight = Math.floor(Number(oldHeight) * scaleRatio);
+        canvas = document.createElement("canvas");
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+        ctx = canvas.getContext("2d");
+        ctx?.drawImage(image, 0, 0, newWidth, newHeight);
+        newDataUrl = canvas.toDataURL(imageType, imageArguments);
+        callback(newDataUrl);
+    }
+    image.src = dataUrl;
 }
