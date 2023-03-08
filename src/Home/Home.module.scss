@@ -1,26 +1,54 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
-body {
+.Home {
     margin: 0;
-    padding: 0;
+    padding: 0 0 5rem 0;
     font-size: 16px;
     font-family: 'Poppins', sans-serif;
-    background: #080a16;
-    color: white;
+
+    button {
+        background-color: #6055ff;
+        color: white;
+        border: none;
+        outline: none;
+        padding: 10px 40px;
+        border-radius: 5px;
+        font-size: 1.1rem;
+        font-weight: 200;
+        cursor: pointer;
+        font-family: inherit;
+    }
+
+    section {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        max-width: 900px;
+        padding: 3rem 5vw;
+        background: rgba(255, 255, 255, 0.03);
+        text-align: center;
+        border-radius: 1rem;
+        margin: 2rem 0 0 0;
+    }
+    
+    section h1 {
+        color: #ccc;
+        font-size: 3rem;
+        font-weight: 600;
+        margin: -1rem 0 3rem 0;
+    }
+    
+    section button {
+        color: white;
+        font-size: 1.5rem;
+        border-radius: 10rem;
+        background: linear-gradient(45deg, #372df3, #4053ff);
+        border: 0;
+        text-decoration: none;
+    }
 }
 
-* {
-    box-sizing: border-box;
-}
-
-hr {
-    margin: 2rem 0;
-    background: rgba(255, 255, 255, 0.07);
-    border: none;
-    height: 1px;
-}
-
-nav {
+.Home nav {
     background: transparent;
     backdrop-filter: blur(2rem);
     -webkit-backdrop-filter: blur(2rem);
@@ -38,17 +66,16 @@ nav {
     top: 0;
     left: 0;
     z-index: 100;
-}
 
-nav .title {
-    font-weight: 200;
-    font-size: 1.5rem;
-}
-
-nav div * {
-    color: #eaeaea;
-    text-decoration: none;
-    margin: 0 1rem;
+    .title {
+        font-weight: 200;
+        font-size: 1.5rem;
+    }
+    div * {
+        color: #eaeaea;
+        text-decoration: none;
+        margin: 0 1rem;
+    }
 }
 
 .banner::before {
@@ -100,86 +127,40 @@ nav div * {
     font-size: 1.2rem;
 }
 
-button {
-    background-color: #6055ff;
-    color: white;
-    border: none;
-    outline: none;
-    padding: 10px 40px;
-    border-radius: 5px;
-    font-size: 1.1rem;
-    font-weight: 200;
-    cursor: pointer;
-    font-family: inherit;
-}
-
-section {
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    max-width: 900px;
-    padding: 3rem 5vw;
-    background: rgba(255, 255, 255, 0.03);
-    text-align: center;
-    border-radius: 1rem;
-    margin: 5rem 0;
-}
-
-section h1 {
-    color: #ccc;
-    font-size: 3rem;
-    font-weight: 600;
-    margin: -1rem 0 3rem 0;
-}
-
-section button {
-    color: white;
-    font-size: 1.5rem;
-    border-radius: 10rem;
-    background: linear-gradient(45deg, #372df3, #4053ff);
-    border: 0;
-    text-decoration: none;
-}
-
 @media screen and (max-width: 1024px) {
-    nav {
+    .Home nav {
         padding: 0 2rem;
-    }
-
-    nav div {
-        display: none;
+        
+        div {
+            display: none;
+        }
     }
 
     .container {
-        padding: 10rem 2rem 0 2rem
+        padding: 10rem 2rem 0 2rem;
+        .title, .second {
+            font-size: 3rem;
+        }
+        .cta-container {
+            flex-direction: column;
+            text-align: left;
+            align-items: flex-start !important;
+            svg {
+                display: none;
+            }
+        }
     }
 
-    .container .title,
-    .container .second {
-        font-size: 3rem;
-    }
-
-    .container .cta-container {
-        flex-direction: column;
-        text-align: left;
-        align-items: flex-start !important;
-    }
-
-    .container .cta-container svg {
-        display: none;
-    }
-
-    section {
+    .Home section {
         border-radius: 0;
-    }
+        h1 {
+            font-size: 2.5rem;
+            margin: 0 0 2rem 0;
+        }
 
-    section h1 {
-        font-size: 2.5rem;
-        margin: 0 0 2rem 0;
-    }
-
-    section button {
-        font-size: 1.2rem;
+        button {
+            font-size: 1.2rem;
+        }
     }
 
     .card {
@@ -205,54 +186,48 @@ section button {
     padding: 0;
     color: white;
     border-radius: 1rem;
-}
+    .profile {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+        .icon {
+            margin-right: 1rem;
+            aspect-ratio: 1/1;
+            width: 4rem;
+            height: 4rem;
+            border-radius: 100rem;
+            background: rgba(255, 255, 255, 0.07);
+            padding: 9px;
+        }
+        .name {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin: 0;
+        }
+        .details {
+            margin: 0;
+            font-size: 1rem;
+            color: #ccc;
+            font-weight: 300
+        }
+    }
+    .attachment {
+        width: 100%;
+        height: auto;
+        max-height: 500px;
+        margin-bottom: -6px;
+        object-fit: cover;
+        border-radius: 0 0 1rem 1rem
+    }
+    .read-more {
+        color: #8b83ff;
+        display: block;
+        cursor: pointer;
 
-.card .profile {
-    display: flex;
-    align-items: center;
-    margin-bottom: 1rem;
-}
-
-.card .profile .icon {
-    margin-right: 1rem;
-    aspect-ratio: 1/1;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 100rem;
-    background: rgba(255, 255, 255, 0.07);
-    padding: 9px;
-}
-
-.card .profile .name {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin: 0;
-}
-
-.card .profile .details {
-    margin: 0;
-    font-size: 1rem;
-    color: #ccc;
-    font-weight: 300
-}
-
-.card .attachment {
-    width: 100%;
-    height: auto;
-    max-height: 500px;
-    margin-bottom: -6px;
-    object-fit: cover;
-    border-radius: 0 0 1rem 1rem
-}
-
-.card .read-more {
-    color: #8b83ff;
-    display: block;
-    cursor: pointer;
-}
-
-.card .read-more:hover {
-    text-decoration: underline;
+        &:hover {
+            text-decoration: underline;
+        }
+    }
 }
 
 .loading {
@@ -265,6 +240,23 @@ section button {
     color: white;
     border-radius: 1rem;
     animation: loading 1s infinite;
+
+    div {
+        background: rgba(255, 255, 255, 0.07);
+        border-radius: 8px;
+        margin-bottom: 1rem;
+        height: 1.5rem;
+        
+        &:first-child {
+            max-width: 300px;
+            margin-bottom: 2rem;
+            height: 2rem;
+        }
+        &:last-child {
+            max-width: 200px;
+            margin-bottom: 0;
+        }
+    }
 }
 
 @keyframes loading {
@@ -279,22 +271,4 @@ section button {
     100% {
         opacity: 0.5;
     }
-}
-
-.loading div {
-    background: rgba(255, 255, 255, 0.07);
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    height: 1.5rem;
-}
-
-.loading div:first-child {
-    max-width: 300px;
-    margin-bottom: 2rem;
-    height: 2rem;
-}
-
-.loading div:last-child {
-    max-width: 200px;
-    margin-bottom: 0;
 }
