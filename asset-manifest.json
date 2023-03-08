@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.css": "/visioneerlist-frontend/static/css/main.073c9b0a.css",
-    "main.js": "/visioneerlist-frontend/static/js/main.e2dc268a.js",
-    "index.html": "/visioneerlist-frontend/index.html",
-    "main.073c9b0a.css.map": "/visioneerlist-frontend/static/css/main.073c9b0a.css.map",
-    "main.e2dc268a.js.map": "/visioneerlist-frontend/static/js/main.e2dc268a.js.map"
+    "main.css": "/static/css/main.073c9b0a.css",
+    "main.js": "/static/js/main.e2dc268a.js",
+    "index.html": "/index.html",
+    "main.073c9b0a.css.map": "/static/css/main.073c9b0a.css.map",
+    "main.e2dc268a.js.map": "/static/js/main.e2dc268a.js.map"
   },
   "entrypoints": [
     "static/css/main.073c9b0a.css",
