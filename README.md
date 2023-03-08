@@ -2,8 +2,6 @@
 VisioneerList is your network to connect with emerging businesses and talent.
 
 <br>
-<br>
-<br>
 
 # Dev Information
 
