@@ -1,5 +1,6 @@
 {
   "name": "visioneerlist-frontend",
+  "homepage": "http://cohencoo.github.io/visioneerlist-frontend",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
