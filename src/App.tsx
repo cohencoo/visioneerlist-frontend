@@ -15,8 +15,14 @@ function App() {
     const fetchData = () => {
         axios
             .get(API_ROUTE + "/api/profiles")
-            .then((res: any) => setProfiles(res.data))
-            .catch(() => setTimeout(fetchData, 1000))
+            .then((res: any) => {
+                setProfiles(res.data)
+                console.log(res)
+            })
+            .catch((err) => {
+                setTimeout(fetchData, 1000)
+                console.error(err)
+            })
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -34,10 +34,14 @@ const Sidebar: React.FC<SidebarProps> = ({ overlay, setOverlay, newProfile, sett
             </div>
             <div style={{ transform: overlay ? "translateY(4.5rem)" : "translateY(0)" }}>
                 <div onClick={() => newProfile()} className={styles.item}>
-                    <span className="material-symbols-rounded">add_business</span>
+                    <span style={{ fontWeight: "300" }} className="material-symbols-rounded">
+                        add_business
+                    </span>
                 </div>
                 <div onClick={() => settings()} className={styles.item}>
-                    <span className="material-symbols-rounded">settings</span>
+                    <span style={{ fontWeight: "300" }} className="material-symbols-rounded">
+                        settings
+                    </span>
                 </div>
             </div>
         </div>
