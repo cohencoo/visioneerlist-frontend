@@ -1,0 +1,42 @@
+<head>
+    <style>
+        body {
+            margin: 0;
+        }
+    </style>
+    <script src="//unpkg.com/globe.gl"></script>
+</head>
+<body>
+    <div id="globeViz"></div>
+    <script>
+        const arcsData = []
+        const ARC_REL_LEN = 0.4
+        const FLIGHT_TIME = 10
+        const NUM_RINGS = 3
+        const RINGS_MAX_R = 5
+        const RING_PROPAGATION_SPEED = 5
+
+        const globe = Globe()
+            .arcColor(() => "darkOrange")
+            .onGlobeClick(emitArc)
+            .globeImageUrl("//unpkg.com/three-globe/example/img/earth-blue-marble.jpg")
+            .arcDashLength(ARC_REL_LEN)
+            .arcStroke(1)(document.getElementById("globeViz"))
+
+        let prevCoords = { lat: 0, lng: 0 }
+        function emitArc({ lat: endLat, lng: endLng }) {
+            const { lat: startLat, lng: startLng } = prevCoords
+            setTimeout(() => {
+                prevCoords = { lat: endLat, lng: endLng }
+            }, FLIGHT_TIME)
+
+            if (startLat !== 0 || startLng !== 0) {
+                console.log("plotted")
+                arcsData.push({ startLat, startLng, endLat, endLng })
+            }
+
+            const arc = { startLat, startLng, endLat, endLng }
+            globe.arcsData([...globe.arcsData(), arc])
+        }
+    </script>
+</body>
