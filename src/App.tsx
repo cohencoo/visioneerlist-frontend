@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import Home from "./Home/Home"
 import Dashboard from "./Dashboard/Dashboard"
-import axios from "axios"
 
 export const AI_ROUTE = "https://visioneerlist-ai.coclub.repl.co"
 export const MAP_ROUTE = "https://visioneerlist-backend.coclub.repl.co/maps/?q="
@@ -13,11 +12,11 @@ function App() {
     const query = new URLSearchParams(window.location.search).get("id")
 
     const fetchData = () => {
-        axios
-            .get(API_ROUTE + "/api/profiles")
-            .then((res: any) => {
-                setProfiles(res.data)
-                console.log(res)
+        fetch(API_ROUTE + "/api/profiles")
+            .then((res) => res.json())
+            .then((data) => {
+                setProfiles(data)
+                console.log(data)
             })
             .catch((err) => {
                 setTimeout(fetchData, 1000)
