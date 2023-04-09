@@ -25,13 +25,6 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-@font-face {
-    font-family: "Material Symbols Rounded";
-    font-style: normal;
-    font-weight: 100 600;
-    src: url(assets/icons.woff2) format("woff2");
-}
-
 .material-symbols-rounded {
     font-family: "Material Symbols Rounded";
     font-weight: normal;
