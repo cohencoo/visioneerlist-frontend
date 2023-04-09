@@ -129,7 +129,7 @@ const Home: React.FC<{ profiles: any; setApp: any }> = ({ profiles, setApp }) =>
                     Get Started
                 </button>
             </section>
-            <Footer />
+            <Footer infoRef={infoRef} setApp={setApp} scrollToTop={scrollToTop} />
         </div>
     )
 }

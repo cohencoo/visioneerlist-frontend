@@ -3,6 +3,27 @@
     color: #fff;
     padding: 2rem 4rem;
 
+    .links {
+        display: flex;
+        gap: 2rem;
+
+        @media (max-width: 768px) {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        span {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--link);
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
     @media (max-width: 768px) {
         padding: 2rem 2rem 1rem 2rem;
     }
