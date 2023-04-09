@@ -1,0 +1,268 @@
+.ProfileCreator {
+    max-width: 1000px;
+    position: relative;
+    left: 50%;
+    top: 30%;
+    transform: translate(-50%, -30%);
+    user-select: none;
+    -webkit-user-select: none;
+
+    .steps {
+        display: flex;
+        justify-content: space-between;
+        text-align: left;
+        height: 280px;
+
+        .memo {
+            width: 50%;
+            margin-right: 3rem;
+
+            span {
+                font-size: 5rem;
+                font-weight: 500;
+                color: #ffcc00;
+            }
+        }
+
+        .stage {
+            width: 50%;
+            display: none;
+        }
+
+        @media (max-width: 800px) {
+            & {
+                margin-top: 7rem;
+                flex-direction: column;
+                height: fit-content !important;
+
+                .memo {
+                    text-align: center;
+                    margin-bottom: 2rem;
+
+                    h1 {
+                        font-size: 1.5rem;
+                    }
+                }
+
+                .memo,
+                .stage {
+                    width: 100%;
+                    margin-right: 0;
+                    height: fit-content;
+                }
+            }
+        }
+    }
+
+    .navigation {
+        width: 47%;
+
+        .container {
+            display: flex;
+            gap: 10px;
+
+            button {
+                background: var(--component);
+                font-size: 1.2rem;
+                font-weight: 500;
+                padding: 9px 2rem;
+                font-size: 1rem;
+                transition: var(--transition);
+
+                &:hover {
+                    background: var(--shade-2);
+                }
+
+                span {
+                    margin: 0 0 0 5px;
+                }
+            }
+        }
+
+        @media (max-width: 800px) {
+            & {
+                width: 100%;
+            }
+        }
+
+        .progress {
+            width: 100%;
+            height: 5px;
+            border-radius: 100rem;
+            background: var(--component);
+            position: relative;
+            margin-top: 1rem;
+
+            div {
+                height: 100%;
+                background: var(--link);
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 0;
+                border-radius: 100rem;
+                transition: var(--transition);
+            }
+        }
+    }
+
+    .flex {
+        display: flex;
+        align-items: center;
+
+        span {
+            color: var(--subtitle);
+            margin-right: 1rem;
+            font-size: 2rem;
+            font-weight: 300 !important;
+        }
+    }
+
+    .label {
+        margin-top: 2rem;
+        color: var(--subtitle);
+    }
+
+    input {
+        background: transparent;
+        border: none;
+        border-bottom: 1px solid var(--component);
+        padding: 0.6rem 1rem 0.6rem 1rem;
+        border-radius: 4px;
+        width: 100%;
+        color: white;
+        margin-bottom: 0.5rem;
+        font-size: 1.1rem;
+        font-weight: 500;
+        font-family: inherit;
+        outline: none;
+    }
+
+    textarea {
+        border: 1px solid var(--component);
+        border-radius: 10px;
+        background: transparent;
+        padding: 0.6rem 1rem 0.6rem 1rem;
+        width: 100%;
+        color: white;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        font-family: inherit;
+        outline: none;
+        min-height: 10rem;
+        max-height: 50rem;
+        resize: vertical;
+        height: 10rem;
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .upload {
+            transition: var(--transition);
+            cursor: pointer;
+            margin-bottom: 3rem;
+            position: relative;
+            width: 20rem;
+            height: 20rem;
+
+            @media (max-width: 800px) {
+                & {
+                    width: 14rem;
+                    height: 14rem;
+                }
+            }
+
+            .preview {
+                width: 100%;
+                height: 100%;
+                border-radius: 10px;
+                background-position: center;
+                background-size: cover;
+                background-repeat: no-repeat;
+            }
+
+            &:hover {
+                filter: brightness(0.8);
+            }
+        }
+
+        .tooltip {
+            background-color: var(--shade-1);
+            padding: 5px 2rem;
+            border-radius: 5px;
+            font-size: 0.95rem;
+            position: absolute;
+            bottom: 5px;
+            pointer-events: none;
+            animation: flash 350ms ease-in-out infinite alternate;
+
+            @media (max-width: 800px) {
+                & {
+                    bottom: calc(8rem - 5px);
+                }
+            }
+
+            @keyframes flash {
+                0% {
+                    background: #555;
+                }
+                100% {
+                    background: var(--shade-2);
+                }
+            }
+        }
+
+        .tooltip::before {
+            content: " ";
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            margin-left: -7px;
+            border-width: 7px;
+            border-style: solid;
+            transform: rotate(-90deg);
+            border-color: transparent transparent transparent var(--shade-2);
+        }
+    }
+}
+
+input[type="radio"] {
+    display: none;
+}
+
+input[type="radio"] + label {
+    display: inline-block;
+    position: relative;
+    padding-left: 40px;
+    margin-right: 15px;
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--subtitle);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+input[type="radio"] + label:before {
+    content: "";
+    display: inline-block;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    border: 1px solid var(--component);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: var(--transition);
+}
+
+input[type="radio"]:checked + label:before {
+    background: var(--link);
+}
+
+input[type="radio"]:checked + label {
+    color: var(--link);
+}

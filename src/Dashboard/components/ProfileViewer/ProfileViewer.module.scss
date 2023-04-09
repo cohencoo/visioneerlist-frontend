@@ -1,0 +1,258 @@
+.ProfileViewer {
+    .image {
+        width: 70vw;
+        max-width: 600px !important;
+        height: auto;
+        max-height: 110vh;
+        object-fit: cover;
+        border-radius: 1rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .banner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        filter: blur(3rem);
+        -webkit-filter: blur(3rem);
+        z-index: -1;
+        opacity: 0.7;
+        width: 100%;
+        height: 20rem;
+    }
+
+    h1 {
+        max-width: 600px;
+        margin: 1rem auto;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        word-wrap: break-word;
+    }
+
+    .toolbar {
+        display: flex;
+        width: 100%;
+        justify-content: center;
+        margin: 1rem 0 3rem 0;
+        align-items: center;
+
+        div {
+            background: var(--component);
+            cursor: pointer;
+            padding: 10px 1rem;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            margin: 0 5px;
+            transition: var(--transition);
+
+            &:hover {
+                background: var(--shade-2);
+            }
+
+            span {
+                margin-right: 10px;
+                font-size: 1.5rem;
+                vertical-align: middle;
+            }
+        }
+    }
+
+    @media (max-width: 425px) {
+        .toolbar {
+            flex-direction: column;
+            align-items: flex-start;
+            margin: 1rem 0 0 0;
+
+            div {
+                margin: 0 0 10px 0;
+                width: 100%;
+                justify-content: center;
+            }
+        }
+    }
+
+    .meta {
+        position: relative;
+        left: 50%;
+        transform: translateX(-50%);
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        grid-gap: 10px;
+        width: fit-content;
+        justify-content: center;
+        margin: 1rem 0 2rem 0;
+        max-width: 750px;
+        align-items: center;
+        color: var(--subtitle);
+
+        div {
+            max-width: 200px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+
+            span {
+                font-size: 1.5rem;
+                font-weight: 500;
+                display: block;
+                margin-bottom: 8px;
+            }
+        }
+    }
+
+    .details {
+        width: 100%;
+        max-width: 800px;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 10px;
+        background: var(--component);
+        position: relative;
+        transform: translateX(-50%);
+        left: 50%;
+        text-align: left;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        word-wrap: break-word;
+
+        h2 {
+            margin: 0 0 1rem 0;
+        }
+
+        .label {
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--subtitle);
+            margin: 0 0 2rem 0;
+        }
+
+        .map {
+            display: block;
+            width: 100%;
+            height: 300px;
+            border-radius: 10px;
+            border: 0;
+            outline: 0;
+        }
+
+        .autoCategory {
+            width: fit-content;
+            background: var(--component);
+            border-radius: 10px;
+            padding: 8px 1rem;
+            margin: -1rem 0 0 0;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+
+            span:nth-child(1) {
+                margin-right: 1rem;
+                font-size: 2.5rem;
+                font-weight: 700;
+                background: linear-gradient(90deg, #cc80ff, #8ea3ff);
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .category {
+                margin: 0 0 5px 0;
+                font-size: 1.2rem;
+                font-weight: 600;
+            }
+            .link {
+                color: var(--link);
+            }
+        }
+
+        ul {
+            padding: 0;
+            margin: 0;
+
+            li {
+                list-style: none;
+                display: flex;
+                padding: 1rem 0;
+                border-bottom: 1.5px solid var(--component);
+                text-overflow: ellipsis;
+                overflow: hidden;
+                word-wrap: break-word;
+
+                span {
+                    margin-right: 10px;
+                    vertical-align: middle;
+                    font-weight: 400;
+                    font-size: 1.5rem;
+                }
+
+                a {
+                    color: var(--link);
+                    margin-left: 8px;
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline;
+                    }
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+        }
+    }
+
+    .postsContainer {
+        padding: 0 !important;
+
+        h2 {
+            padding: 1rem 0 0 1rem !important;
+        }
+
+        .nothing {
+            margin: 1rem 0 0 1rem;
+        }
+
+        hr {
+            margin: 1rem 0 0 0;
+        }
+
+        .post {
+            padding: 1rem 1rem 0 1rem;
+            margin: 1rem 0 0 0;
+            border-top: 1px solid var(--border);
+
+            h3 {
+                margin: 0 0 5px 0;
+                word-wrap: break-word;
+                word-break: break-word;
+            }
+
+            .timestamp {
+                color: var(--subtitle);
+                font-size: 0.9rem;
+                margin: 0;
+            }
+
+            p {
+                margin: 1rem 0 1rem 0;
+                word-wrap: break-word;
+                word-break: break-word;
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+                border-radius: 1rem;
+            }
+        }
+    }
+
+    @media screen and (max-width: 1168px) {
+        .meta {
+            grid-template-columns: 1fr 1fr !important;
+            font-size: 0.9rem;
+        }
+    }
+}

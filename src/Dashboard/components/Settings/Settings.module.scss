@@ -1,0 +1,104 @@
+.Settings {
+    max-width: 1000px;
+    margin: 0 auto;
+
+    .login {
+        max-width: 500px;
+        margin: 0 auto;
+
+        .accountIcon {
+            span {
+                font-weight: 400;
+                color: var(--subtitle);
+                font-size: 6rem;
+            }
+        }
+
+        input {
+            width: 100%;
+            padding: 10px 1rem;
+            border: 1px solid var(--shade-2);
+            background: var(--component);
+            border-radius: 4px;
+            margin: 0.5rem 0;
+            font-size: 1rem;
+            color: var(--text);
+            font-family: inherit;
+        }
+
+        button {
+            margin: 10px 0;
+            padding: 10px 1rem;
+        }
+
+        .loading {
+            background: #99601010;
+        }
+
+        .tip {
+            font-size: 0.9rem;
+            color: var(--subtitle);
+            cursor: pointer;
+
+            span {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    .dashboard {
+        text-align: left;
+
+        .banner {
+            margin: 0 0 2rem 0;
+            display: flex;
+            align-items: center;
+
+            h2 {
+                font-size: 1.5rem;
+                font-weight: 500;
+                color: var(--subtitle);
+                margin: 0;
+
+                &:last-child {
+                    font-size: 1.7rem;
+                    color: white;
+                }
+            }
+
+            span {
+                margin-right: 2rem;
+                font-weight: 400;
+                color: var(--subtitle);
+                font-size: 4rem;
+            }
+
+            @media (max-width: 768px) {
+                h2 {
+                    font-size: 1.3rem !important;
+
+                    &:last-child {
+                        font-size: 0.9rem !important;
+                        text-overflow: ellipsis;
+                        max-width: 200px;
+                        overflow: hidden;
+                    }
+                }
+                span {
+                    font-size: 3rem !important;
+                }
+            }
+        }
+    }
+
+    kbd {
+        background: var(--shade-1);
+        border-radius: 4px;
+        padding: 1px 8px;
+        width: fit-content;
+        margin: 0 0.2rem;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--text);
+    }
+}

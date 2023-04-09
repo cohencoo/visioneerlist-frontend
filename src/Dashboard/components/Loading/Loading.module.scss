@@ -1,0 +1,105 @@
+.Loading {
+    min-height: 10rem;
+    background: var(--component);
+    border-radius: 1rem;
+    padding: 10px;
+    font-weight: bold;
+    word-wrap: break-word;
+
+    .icon {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 1.2/1;
+        border-radius: 1rem 1rem 5px 5px;
+        background: var(--shade-1);
+        position: relative;
+        overflow: hidden;
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 150%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            animation: shimmer 1.3s infinite alternate;
+            transform: translateZ(0);
+        }
+    }
+
+    .headline {
+        margin-top: 1rem;
+        border-radius: 5px;
+        background: var(--shade-1);
+        width: 100%;
+        height: 1.3rem;
+        position: relative;
+        overflow: hidden;
+
+        &:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -50%;
+            width: 150%;
+            height: 100%;
+            background: linear-gradient(
+                to right,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            animation: shimmer 1s infinite alternate;
+            transform: translateZ(0);
+        }
+    }
+
+    .details {
+        margin-top: 1rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 5px;
+
+        div {
+            width: 6rem;
+            height: 14px;
+            background: var(--shade-1);
+            border-radius: 4px;
+            position: relative;
+            overflow: hidden;
+
+            &:before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -50%;
+                width: 150%;
+                height: 100%;
+                background: linear-gradient(
+                    to right,
+                    transparent,
+                    rgba(255, 255, 255, 0.1),
+                    transparent
+                );
+                animation: shimmer 1.5s infinite alternate;
+                transform: translateZ(0);
+            }
+        }
+    }
+
+    @keyframes shimmer {
+        0% {
+            transform: translateX(-50%);
+        }
+
+        100% {
+            transform: translateX(50%);
+        }
+    }
+}

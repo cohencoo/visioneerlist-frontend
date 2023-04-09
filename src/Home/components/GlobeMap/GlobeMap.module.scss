@@ -1,0 +1,10 @@
+.GlobeMap {
+    width: 50%;
+    pointer-events: none;
+
+    @media (max-width: 1200px) {
+        & {
+            display: none;
+        }
+    }
+}

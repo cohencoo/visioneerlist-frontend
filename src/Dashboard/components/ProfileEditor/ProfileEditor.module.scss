@@ -1,0 +1,172 @@
+.ProfileEditor {
+    .image {
+        width: 70vw;
+        max-width: 600px !important;
+        height: auto;
+        max-height: 110vh;
+        object-fit: cover;
+        border-radius: 1rem;
+        margin-bottom: 0;
+    }
+
+    .banner {
+        position: absolute;
+        top: 0;
+        left: 0;
+        filter: blur(3rem);
+        -webkit-filter: blur(3rem);
+        z-index: -1;
+        opacity: 0.7;
+        width: 100%;
+        height: 20rem;
+    }
+
+    h1 {
+        max-width: 600px;
+        margin: 2rem auto;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        word-wrap: break-word;
+
+        span {
+            vertical-align: middle;
+            margin-right: 1rem;
+            font-size: 2.5rem;
+        }
+    }
+
+    .details {
+        width: 100%;
+        max-width: 800px;
+        padding: 1rem;
+        margin: 1rem 0;
+        border-radius: 10px;
+        background: var(--component);
+        position: relative;
+        transform: translateX(-50%);
+        left: 50%;
+        text-align: left;
+
+        .imageUpload {
+            display: flex;
+            align-items: center;
+
+            img {
+                margin-right: 2rem;
+                width: 5rem;
+                height: 5rem;
+                border-radius: 100rem;
+                object-fit: cover;
+            }
+            .changeImage {
+                padding: 12px 2rem;
+                margin-top: 0;
+                background: var(--component);
+            }
+        }
+
+        .label {
+            font-weight: 500;
+            font-size: 1rem;
+            color: var(--subtitle);
+            margin: 0 0 2rem 0;
+            align-items: center;
+            display: flex;
+
+            span {
+                margin-right: 1rem;
+                font-size: 1.5rem;
+            }
+        }
+
+        input {
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid var(--component);
+            padding: 0.6rem 1rem 0.6rem 1rem;
+            width: 100%;
+            color: white;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 500;
+            font-family: inherit;
+            outline: none;
+        }
+
+        textarea {
+            border: 1px solid var(--component);
+            border-radius: 10px;
+            background: transparent;
+            padding: 0.6rem 1rem 0.6rem 1rem;
+            width: 100%;
+            color: white;
+            margin-bottom: 1rem;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            min-height: 10rem;
+            max-height: 50rem;
+            resize: vertical;
+            height: 10rem;
+        }
+
+        .checkBox {
+            margin: 0 0 2rem 1rem;
+            display: block;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--shade-1);
+            border-radius: 10px;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0px 0px 0px 2px #fff;
+
+            div {
+                width: 60px;
+                height: 60px;
+                background-color: #fff;
+                top: -52px;
+                left: -52px;
+                position: absolute;
+                transform: rotateZ(45deg);
+                z-index: 100;
+            }
+
+            input[type="checkbox"]:checked + div {
+                left: -10px;
+                top: -10px;
+            }
+
+            input[type="checkbox"] {
+                position: absolute;
+                left: 50px;
+                visibility: hidden;
+            }
+
+            .transition {
+                transition: 300ms ease;
+            }
+        }
+
+        .deleteProfile {
+            font-size: 1rem;
+            margin: -10px 0 0 0;
+            color: #ff8e8ec5;
+            cursor: pointer;
+
+            &:hover {
+                text-decoration: underline;
+            }
+
+            span {
+                margin-right: 1rem;
+                font-weight: 300;
+            }
+        }
+
+        .hiring {
+            margin-bottom: 2rem;
+        }
+    }
+}

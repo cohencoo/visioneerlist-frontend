@@ -1,13 +1,37 @@
-/* eslint-disable */
-import React, { useState } from 'react';
-import Home from './Home/Home';
-import Dashboard from './Dashboard/Dashboard';
-import "./index.css"
+import { useEffect, useState } from "react"
+import Home from "./Home/Home"
+import Dashboard from "./Dashboard/Dashboard"
+import axios from "axios"
+
+export const AI_ROUTE = "https://visioneerlist-ai.coclub.repl.co"
+export const MAP_ROUTE = "https://api.visioneerlist.com/maps/?q="
+export const API_ROUTE = "https://api.visioneerlist.com"
 
 function App() {
-  const [page, setPage] = useState("/")
-  return page === "/" ? <Home setPage={setPage} /> : <Dashboard setPage={setPage} />
-  // return <Dashboard setPage={setPage} />
+    const [app, setApp] = useState("/")
+    const [profiles, setProfiles] = useState({}) as any
+    const query = new URLSearchParams(window.location.search).get("id")
+
+    const fetchData = () => {
+        axios
+            .get(API_ROUTE + "/api/profiles")
+            .then((res: any) => setProfiles(res.data))
+            .catch(() => setTimeout(fetchData, 1000))
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    useEffect(() => fetchData, [])
+
+    return app === "/" && !query ? (
+        <Home profiles={profiles} setApp={setApp} />
+    ) : (
+        <Dashboard
+            profiles={profiles}
+            setProfiles={setProfiles}
+            viewProfile={query}
+            newListing={app === "/new-profile"}
+        />
+    )
 }
 
-export default App;
+export default App
