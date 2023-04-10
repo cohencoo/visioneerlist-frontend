@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import axios from "axios"
 import styles from "./Dashboard.module.scss"
 import { API_ROUTE } from "../App"
@@ -15,17 +15,17 @@ import NewSearch from "./components/NewSearch/NewSearch"
 import { toastStyles } from "../assets/utils"
 
 interface DashboardProps {
-    profiles: any
     setProfiles: any
     newListing?: boolean
     viewProfile?: string | null
+    DataContext?: any
 }
 
 const Dashboard: React.FC<DashboardProps> = ({
-    profiles,
     setProfiles,
     newListing,
-    viewProfile
+    viewProfile,
+    DataContext
 }) => {
     const [filterBy, setFilterBy] = useState("latest")
     const [search, setSearch] = useState("")
@@ -33,6 +33,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     const [autoLaunch, setAutoLaunch] = useState(false)
     const [overlay, setOverlay] = useState<any>(null)
     const [layoutScale, setLayoutScale] = useState(0)
+    const profiles = useContext(DataContext) as any
 
     function refetch(callback?: any) {
         axios
@@ -74,6 +75,8 @@ const Dashboard: React.FC<DashboardProps> = ({
                 style: toastStyles
             })
         }
+        console.log(profiles)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {

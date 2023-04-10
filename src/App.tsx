@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, createContext } from "react"
 import Home from "./Home/Home"
 import Dashboard from "./Dashboard/Dashboard"
 import axios from "axios"
@@ -10,6 +10,7 @@ export const API_ROUTE = "https://visioneerlist-backend.onrender.com"
 function App() {
     const [app, setApp] = useState("/")
     const [profiles, setProfiles] = useState({})
+    const DataContext = createContext(profiles)
     const query = new URLSearchParams(window.location.search).get("id")
 
     const fetchData = () => {
@@ -22,15 +23,21 @@ function App() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => fetchData, [])
 
-    return app === "/" && !query ? (
-        <Home profiles={profiles} setApp={setApp} />
-    ) : (
-        <Dashboard
-            profiles={profiles}
-            setProfiles={setProfiles}
-            viewProfile={query}
-            newListing={app === "/new-profile"}
-        />
+    return (
+        <>
+            <DataContext.Provider value={profiles}>
+                {app === "/" && !query ? (
+                    <Home profiles={profiles} setApp={setApp} />
+                ) : (
+                    <Dashboard
+                        setProfiles={setProfiles}
+                        viewProfile={query}
+                        DataContext={DataContext}
+                        newListing={app === "/new-profile"}
+                    />
+                )}
+            </DataContext.Provider>
+        </>
     )
 }
 
