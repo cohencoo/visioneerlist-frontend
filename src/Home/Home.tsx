@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useEffect, useRef } from "react"
 import styles from "./Home.module.scss"
 import { scrollToTop } from "../assets/utils"
 import Listing from "./components/Listing/Listing"
@@ -7,13 +7,31 @@ import Loading from "./components/Loading/Loading"
 import GlobeMap from "./components/GlobeMap/GlobeMap"
 import Aos from "aos"
 import Footer from "./components/Footer/Footer"
+import axios from "axios"
+import { API_ROUTE } from "../App"
 
-const Home: React.FC<{ profiles: any; setApp: any }> = ({ profiles, setApp }) => {
+const Home: React.FC<{ profiles: any; setProfiles: any; setApp: any }> = ({
+    profiles,
+    setProfiles,
+    setApp
+}) => {
     const infoRef = useRef<HTMLDivElement>(null)
     if (window.innerWidth > 768) {
         import("aos/dist/aos.css")
         Aos.init()
     }
+
+    function refetch(callback?: any) {
+        axios.get(API_ROUTE + "/api/profiles").then((res: any) => {
+            setProfiles(res.data)
+            callback && callback(res)
+        })
+    }
+
+    useEffect(() => {
+        if (Object.keys(profiles).length === 0) refetch()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return (
         <div className={styles.Home}>

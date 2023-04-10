@@ -23,7 +23,7 @@ function App() {
     useEffect(() => fetchData, [])
 
     return app === "/" && !query ? (
-        <Home profiles={profiles} setApp={setApp} />
+        <Home profiles={profiles} setProfiles={setProfiles} setApp={setApp} />
     ) : (
         <Dashboard
             profiles={profiles}
