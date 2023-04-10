@@ -4,8 +4,8 @@ import Dashboard from "./Dashboard/Dashboard"
 import axios from "axios"
 
 export const AI_ROUTE = "https://visioneerlist-ai.coclub.repl.co"
-export const MAP_ROUTE = "https://visioneerlist-backend.coclub.repl.co/maps/?q="
-export const API_ROUTE = "https://visioneerlist-backend.coclub.repl.co"
+export const MAP_ROUTE = "https://visioneerlist-backend.onrender.com/maps/?q="
+export const API_ROUTE = "https://visioneerlist-backend.onrender.com"
 
 function App() {
     const [app, setApp] = useState("/")
