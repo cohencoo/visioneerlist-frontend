@@ -10,23 +10,17 @@ export const API_ROUTE = "https://visioneerlist-backend.onrender.com"
 function App() {
     const [app, setApp] = useState("/")
     const [profiles, setProfiles] = useState({})
-    const [success, setSuccess] = useState(false)
     const query = new URLSearchParams(window.location.search).get("id")
 
     const fetchData = () => {
-        if (success) return
-        console.log("Fetching data...")
         axios
-            .get(API_ROUTE + "/api/profiles?timestamp=" + new Date().getTime())
-            .then((res: any) => {
-                setProfiles(res.data)
-                setSuccess(true)
-            })
+            .get(API_ROUTE + "/api/profiles")
+            .then((res: any) => setProfiles(res.data))
             .catch(() => setTimeout(fetchData, 1000))
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    useEffect(() => fetchData, [profiles])
+    useEffect(() => fetchData, [])
 
     return app === "/" && !query ? (
         <Home profiles={profiles} setApp={setApp} />

@@ -68,12 +68,14 @@ const Dashboard: React.FC<DashboardProps> = ({
     }, [overlay])
 
     useEffect(() => {
+        if (Object.keys(profiles).length === 0) refetch()
         if (window.location.protocol !== "https:" && window.location.host !== "localhost:3000") {
             toast.error("(CORS) Development server must be localhost:3000", {
                 position: "top-center",
                 style: toastStyles
             })
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     useEffect(() => {
