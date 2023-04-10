@@ -41,3 +41,30 @@
         }
     }
 }
+
+.LoadingFailed {
+    background: var(--component);
+    border: 1px solid var(--border);
+    margin: 1rem 0 5rem 0;
+    padding: 1rem;
+    border-radius: 1rem;
+    text-align: center;
+    line-height: 1.5;
+
+    a {
+        color: var(--link);
+        text-decoration: none;
+        font-weight: 500;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    span {
+        display: block;
+        margin-bottom: 1rem;
+        color: #ffb300;
+        font-size: 4rem;
+    }
+}

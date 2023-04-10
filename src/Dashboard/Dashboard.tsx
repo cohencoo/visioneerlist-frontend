@@ -42,10 +42,25 @@ const Dashboard: React.FC<DashboardProps> = ({
                 callback && callback(res)
             })
             .catch(() => {
-                toast.error("An error occurred while loading", {
-                    position: "top-center",
-                    style: toastStyles
-                })
+                toast.loading(
+                    "We're experiencing some network issues at the moment. Please don't fret, we'll be back online soon.",
+                    {
+                        position: "top-center",
+                        style: toastStyles,
+                        id: "network-error",
+                        icon: (
+                            <span
+                                style={{
+                                    color: "rgb(255, 150, 50)",
+                                    fontSize: "2rem",
+                                    margin: "0 10px"
+                                }}
+                                className="material-symbols-rounded">
+                                sms_failed
+                            </span>
+                        )
+                    }
+                )
             })
     }
     function settings() {

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import styles from "./Home.module.scss"
 import { scrollToTop } from "../assets/utils"
 import Listing from "./components/Listing/Listing"
@@ -10,22 +10,28 @@ import Footer from "./components/Footer/Footer"
 import axios from "axios"
 import { API_ROUTE } from "../App"
 
-const Home: React.FC<{ profiles: any; setProfiles: any; setApp: any }> = ({
-    profiles,
-    setProfiles,
-    setApp
-}) => {
+interface HomeProps {
+    profiles: any
+    setProfiles: any
+    setApp: any
+}
+
+const Home: React.FC<HomeProps> = ({ profiles, setProfiles, setApp }) => {
     const infoRef = useRef<HTMLDivElement>(null)
+    const [loadingFailed, setLoadingFailed] = useState(false)
     if (window.innerWidth > 768) {
         import("aos/dist/aos.css")
         Aos.init()
     }
 
     function refetch(callback?: any) {
-        axios.get(API_ROUTE + "/api/profiles").then((res: any) => {
-            setProfiles(res.data)
-            callback && callback(res)
-        })
+        axios
+            .get(API_ROUTE + "/api/profiles")
+            .then((res: any) => {
+                setProfiles(res.data)
+                callback && callback(res)
+            })
+            .catch(() => setLoadingFailed(true))
     }
 
     useEffect(() => {
@@ -46,7 +52,14 @@ const Home: React.FC<{ profiles: any; setProfiles: any; setApp: any }> = ({
                         </h1>
                         <p className={styles.headline}>
                             Seconds to create a Listing; access to future employees, customers &
-                            users.
+                            users{" "}
+                            <span
+                                className={styles.learnMore}
+                                onClick={() =>
+                                    infoRef.current?.scrollIntoView({ behavior: "smooth" })
+                                }>
+                                learn more.
+                            </span>
                         </p>
 
                         <div className={styles.buttons}>
@@ -73,12 +86,7 @@ const Home: React.FC<{ profiles: any; setProfiles: any; setApp: any }> = ({
                     </div>
                     <GlobeMap />
                 </div>
-                <div ref={infoRef} className={styles.learnMore}>
-                    <div onClick={() => infoRef.current?.scrollIntoView({ behavior: "smooth" })}>
-                        Learn More
-                        <span className="material-symbols-rounded">keyboard_double_arrow_down</span>
-                    </div>
-                </div>
+                <div ref={infoRef}></div>
                 <div className={styles.info}>
                     <div data-aos="fade-up" data-aos-delay="0" className={styles.card}>
                         <span className="material-symbols-rounded">info</span>
@@ -130,23 +138,23 @@ const Home: React.FC<{ profiles: any; setProfiles: any; setApp: any }> = ({
                                 <Listing key={index} props={profiles[item]} />
                             ))
                     ) : (
-                        <>
-                            <Loading /> <Loading /> <Loading /> <Loading />
-                        </>
+                        <Loading loadingFailed={loadingFailed} />
                     )}
                 </div>
             </div>
-            <section>
-                <h1>Discover more emerging talent</h1>
-                <button
-                    onClick={() => {
-                        setApp("/dashboard")
-                        scrollToTop()
-                    }}>
-                    <span className="material-symbols-rounded">travel_explore</span>
-                    Get Started
-                </button>
-            </section>
+            {!loadingFailed && (
+                <section>
+                    <h1>Discover more emerging talent</h1>
+                    <button
+                        onClick={() => {
+                            setApp("/dashboard")
+                            scrollToTop()
+                        }}>
+                        <span className="material-symbols-rounded">travel_explore</span>
+                        Get Started
+                    </button>
+                </section>
+            )}
             <Footer infoRef={infoRef} setApp={setApp} scrollToTop={scrollToTop} />
         </div>
     )
