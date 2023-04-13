@@ -32,9 +32,14 @@ const Profile: React.FC<ProfileProps> = ({ props, profiles, refetch, setOverlay,
             <div
                 style={{ background: `url(${props.image || placeholderUser})` }}
                 className={styles.icon}>
-                {props.hiring && <div className={styles.hiring}>Actively Hiring • Apply here</div>}
+                <div className={styles.modifiers}>
+                    {props.hiring && (
+                        <div className={styles.hiring}>Actively Hiring • Apply here</div>
+                    )}
+                    {props.boosted && <div className={styles.boosted}>Promoted</div>}
+                </div>
             </div>
-            <div style={{ padding: "9px 12px" }}>
+            <div className={styles.information}>
                 <p className={styles.name}>
                     {props?.title?.length > 40 ? props.title.substring(0, 40) + "..." : props.title}
                 </p>

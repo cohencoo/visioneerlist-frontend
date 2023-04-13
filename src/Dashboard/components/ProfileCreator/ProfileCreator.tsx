@@ -1,7 +1,7 @@
 import React, { useRef, useState } from "react"
 import styles from "./ProfileCreator.module.scss"
 import placeholderUser from "../../../assets/user.png"
-import { toastStyles, uuid } from "../../../assets/utils"
+import { toastSchema, uuid } from "../../../assets/utils"
 import axios from "axios"
 import { API_ROUTE } from "../../../App"
 import toast from "react-hot-toast"
@@ -39,10 +39,9 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
         image: ""
     })
 
-    function notify(type: string, message: string) {
-        const config: any = { duration: 4000, position: "top-center", style: toastStyles }
-        if (type === "error") toast.error(message, config)
-        else toast.success(message, config)
+    function notify(type: string, message: string, id: string) {
+        if (type === "error") toast.error(message, toastSchema(id))
+        else toast.success(message, toastSchema(id))
     }
 
     function createProfile() {
@@ -67,26 +66,39 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                             .then(() => {
                                 refetch(() => {
                                     setOverlay(null)
-                                    notify("success", `Successfully Created "${formData.title}"`)
+                                    notify(
+                                        "success",
+                                        `Successfully Created "${formData.title}"`,
+                                        "profile-complete"
+                                    )
                                 })
                             })
                             .catch(() => {
                                 setVerifying(false)
-                                notify("error", `Something went wrong. Please try again later.`)
+                                notify(
+                                    "error",
+                                    `Something went wrong. Please try again later.`,
+                                    "profile-error"
+                                )
                             })
                     })
                     .catch(() => {
                         setVerifying(false)
-                        notify("error", `An account is already using this email.`)
+                        notify("error", `An account is already using this email.`, "email-error")
                     })
-            } else notify("error", `Please create an account to link your Profile to.`)
+            } else
+                notify(
+                    "error",
+                    `Please create an account to link your Profile to.`,
+                    "account-error"
+                )
         }
     }
 
-    const handleInputChange = (item: any) => {
+    const handleInputChange = (name: string, value: any) => {
         setFormData((prevState) => ({
             ...prevState,
-            [item.name]: item.type === "radio" ? Boolean(item.value) : item.value
+            [name]: name === "hiring" ? Boolean(value) : value
         }))
     }
 
@@ -128,7 +140,7 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                         <span className="material-symbols-rounded">drive_file_rename_outline</span>
                         <input
                             maxLength={300}
-                            onChange={(e) => handleInputChange(e.target)}
+                            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                             placeholder="Eg. Graphic design services"
                             name="title"
                             type="title"
@@ -139,7 +151,7 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                         <span className="material-symbols-rounded">corporate_fare</span>
                         <input
                             maxLength={300}
-                            onChange={(e) => handleInputChange(e.target)}
+                            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                             placeholder="Company or business name"
                             name="company"
                             type="company"
@@ -150,7 +162,7 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                         <span className="material-symbols-rounded">location_on</span>
                         <input
                             maxLength={300}
-                            onChange={(e) => handleInputChange(e.target)}
+                            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                             placeholder="Location"
                             name="location"
                             type="location"
@@ -163,7 +175,7 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                         <span className="material-symbols-rounded">link</span>
                         <input
                             maxLength={300}
-                            onChange={(e) => handleInputChange(e.target)}
+                            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                             placeholder="Website URL"
                             name="website"
                             type="website"
@@ -175,8 +187,8 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                     <div className={styles.flex}>
                         <span className="material-symbols-rounded">call</span>
                         <input
-                            onChange={(e) => handleInputChange(e.target)}
                             maxLength={13}
+                            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                             placeholder="Phone"
                             name="phone"
                             type="phone"
@@ -187,7 +199,7 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                         <span className="material-symbols-rounded">mail</span>
                         <input
                             maxLength={300}
-                            onChange={(e) => handleInputChange(e.target)}
+                            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                             placeholder="Email"
                             name="email"
                             type="email"
@@ -196,14 +208,10 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                 </div>
 
                 <div style={{ display: step === 4 ? "block" : "none" }} className={styles.stage}>
-                    <p className={styles.label}>
-                        (max 1000 words) - Describe your business, services, and/or products.
-                    </p>
-
                     <textarea
                         maxLength={5000}
-                        onChange={(e) => handleInputChange(e.target)}
-                        placeholder="Profile Description"
+                        onChange={(e) => handleInputChange("description", e.target.value)}
+                        placeholder="(max 1000 words) - Describe your business, services, and/or products."
                         name="description"></textarea>
 
                     <p className={styles.label}>
@@ -214,7 +222,7 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                         <span className="material-symbols-rounded">manage_search</span>
                         <input
                             maxLength={300}
-                            onChange={(e) => handleInputChange(e.target)}
+                            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                             placeholder="consultation, designer, example, etc."
                             name="keywords"
                             type="keywords"
@@ -228,17 +236,17 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                         <br />
                         <br />
                         <input
-                            onChange={(e) => handleInputChange(e.target)}
+                            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                             type="radio"
                             id="yes"
                             name="hiring"
-                            value="yes"
+                            value="true"
                         />
                         <label htmlFor="yes">Yes, I am currently hiring</label>
                         <br />
                         <br />
                         <input
-                            onChange={(e) => handleInputChange(e.target)}
+                            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                             type="radio"
                             id="no"
                             name="hiring"
@@ -255,7 +263,7 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                             </p>
                             <input
                                 maxLength={300}
-                                onChange={(e) => handleInputChange(e.target)}
+                                onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                                 placeholder="*Use currency where applicable"
                                 name="salaryRange"
                                 type="salaryRange"
@@ -263,7 +271,7 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                             <p className={styles.label}> What is the employment type? </p>
                             <input
                                 maxLength={300}
-                                onChange={(e) => handleInputChange(e.target)}
+                                onChange={(e) => handleInputChange(e.target.name, e.target.value)}
                                 placeholder="Eg. Full Time/Part Time"
                                 name="employmentType"
                                 type="employmentType"
@@ -318,19 +326,15 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                                 step === 1 &&
                                 (!formData.title.trim() || !formData.company.trim())
                             ) {
-                                toast.error("Please provide a headline/title and a company name.", {
-                                    duration: 4000,
-                                    position: "top-center",
-                                    style: toastStyles
-                                })
+                                notify(
+                                    "error",
+                                    "Please provide a headline/title and a company name.",
+                                    "no-title"
+                                )
                                 return
                             }
                             if (step === 4 && !formData.description.trim()) {
-                                toast.error("Please provide a description.", {
-                                    duration: 4000,
-                                    position: "top-center",
-                                    style: toastStyles
-                                })
+                                notify("error", "Please provide a description.", "no-description")
                                 return
                             }
                             if (step < 6) setStep(step + 1)

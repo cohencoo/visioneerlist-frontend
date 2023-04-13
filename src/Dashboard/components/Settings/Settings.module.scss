@@ -59,11 +59,6 @@
                 font-weight: 500;
                 color: var(--subtitle);
                 margin: 0;
-
-                &:last-child {
-                    font-size: 1.7rem;
-                    color: white;
-                }
             }
 
             span {
@@ -84,6 +79,7 @@
                         overflow: hidden;
                     }
                 }
+
                 span {
                     font-size: 3rem !important;
                 }

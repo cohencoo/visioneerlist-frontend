@@ -1,7 +1,7 @@
 import axios from "axios"
 import React, { useRef, useState } from "react"
 import { API_ROUTE } from "../../../../App"
-import { toastStyles, uuid } from "../../../../assets/utils"
+import { toastSchema, toastStyles, uuid } from "../../../../assets/utils"
 import ProfileViewer from "../ProfileViewer"
 import styles from "./PostCreator.module.scss"
 import ImageUploader from "../../ImageUploader/ImageUploader"
@@ -48,11 +48,7 @@ const PostCreator: React.FC<PostCreatorProps> = ({
                 .then(() => {
                     refetch((data: any) => {
                         toast.dismiss(verification)
-                        toast.success(`Your post was uploaded`, {
-                            duration: 2000,
-                            position: "top-center",
-                            style: toastStyles
-                        })
+                        toast.success(`Your post was uploaded`, toastSchema("post-uploaded"))
                         setActive(false)
                         setOverlay(
                             <ProfileViewer
@@ -65,20 +61,15 @@ const PostCreator: React.FC<PostCreatorProps> = ({
                     })
                 })
                 .catch(() => {
-                    toast.error("Something went wrong. Please try again later.", {
-                        duration: 4000,
-                        position: "top-center",
-                        style: toastStyles
-                    })
+                    toast.error(
+                        "Something went wrong. Please try again later.",
+                        toastSchema("post-error")
+                    )
                 })
         } else {
             toast.error(
                 `Your post needs a ${titleInput.current?.value ? "description" : "title"}`,
-                {
-                    duration: 2000,
-                    position: "top-center",
-                    style: toastStyles
-                }
+                toastSchema("missing-title")
             )
         }
     }

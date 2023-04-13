@@ -19,6 +19,7 @@ interface HomeProps {
 const Home: React.FC<HomeProps> = ({ profiles, setProfiles, setApp }) => {
     const infoRef = useRef<HTMLDivElement>(null)
     const [loadingFailed, setLoadingFailed] = useState(false)
+
     if (window.innerWidth > 768) {
         import("aos/dist/aos.css")
         Aos.init()
@@ -46,6 +47,17 @@ const Home: React.FC<HomeProps> = ({ profiles, setProfiles, setApp }) => {
             <div className={styles.container}>
                 <div className={styles.globeContainer}>
                     <div>
+                        <div className={styles.productHunt}>
+                            <a
+                                href="https://www.producthunt.com/posts/visioneerlist?utm_source=badge-top-post-topic-badge&utm_medium=badge&utm_souce=badge-visioneerlist"
+                                target="_blank"
+                                rel="noreferrer">
+                                <img
+                                    src="https://api.producthunt.com/widgets/embed-image/v1/top-post-topic-badge.svg?post_id=388253&theme=neutral&period=weekly&topic_id=164"
+                                    alt="VisioneerList - Empowering&#0032;emerging&#0032;innovative&#0032;startups | Product Hunt"
+                                />
+                            </a>
+                        </div>
                         <h1 className={styles.title}>
                             Join a community of
                             <span className={styles.second}> visionaries and innovators</span>
@@ -108,7 +120,7 @@ const Home: React.FC<HomeProps> = ({ profiles, setProfiles, setApp }) => {
                             <span>Statistically, 42%</span>
                             of startup businesses fail, commonly due to costs involved in marketing
                             and advertising.
-                            <i> (Business Startup Statistics Australia | Fundsquire). </i>
+                            <i> (Business Startup Statistics Australia | Fundsquire 2022). </i>
                             Due to the high costs involved, many emerging businesses are deterred
                             from mainstream advertising, which can stifle their firepower.
                         </p>

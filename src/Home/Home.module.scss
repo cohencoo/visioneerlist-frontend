@@ -64,13 +64,17 @@
                 rgba(252, 203, 255, 0.3) 14%,
                 transparent 14%
             ),
-            radial-gradient(circle at 40% 20%, rgba(88, 169, 216, 0.3) 10%, transparent 10%),
+            radial-gradient(circle at 40% 20%, rgba(50, 180, 255, 0.3) 10%, transparent 10%),
             radial-gradient(circle at 60% 50%, rgba(88, 169, 216, 0.3) 10%, transparent 10%),
-            radial-gradient(circle at 80% 70%, rgba(88, 169, 216, 0.3) 10%, transparent 10%),
-            radial-gradient(circle at 60% 50%, rgba(97, 100, 204, 0.3) 14%, transparent 14%),
+            radial-gradient(circle at 10% 20%, rgba(19, 0, 64, 0.3) 10%, transparent 10%),
+            radial-gradient(circle at 40% 60%, rgba(42, 0, 141, 0.3) 10%, transparent 10%),
+            radial-gradient(circle at 20% 90%, rgba(57, 27, 127, 0.3) 10%, transparent 10%),
             radial-gradient(circle at 50% 80%, rgba(204, 97, 195, 0.3) 14%, transparent 14%);
         filter: blur(10rem);
         -webkit-filter: blur(10rem);
+        -moz-filter: blur(10rem);
+        -o-filter: blur(10rem);
+        -ms-filter: blur(10rem);
 
         @media (min-width: 2400px) {
             & {
@@ -122,11 +126,62 @@
                         color: var(--subtitle);
                     }
                 }
+            }
 
-                @media (max-width: 500px) {
-                    & {
-                        flex-direction: column;
-                        align-items: flex-start;
+            .productHunt {
+                width: fit-content;
+                margin: 0 0 1rem 0;
+
+                a {
+                    img {
+                        width: 280px;
+                        height: auto;
+                    }
+                }
+            }
+
+            @media (max-width: 1200px) {
+                & {
+                    padding: 0 3rem;
+                    text-align: center;
+
+                    .productHunt {
+                        position: relative;
+                        top: 0;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        margin-bottom: 2rem;
+                    }
+
+                    &:first-child {
+                        margin: 0;
+                    }
+
+                    .title,
+                    .second {
+                        font-size: 3rem !important;
+                    }
+
+                    .headline {
+                        max-width: 800px;
+                        margin: 1rem auto;
+                        text-align: center;
+                    }
+
+                    .buttons {
+                        margin-top: 2rem;
+                        justify-content: center;
+                    }
+                }
+            }
+
+            @media (max-width: 500px) {
+                & {
+                    padding: 0 1rem;
+
+                    .buttons {
+                        justify-content: center;
+                        margin: 0;
 
                         .separator {
                             display: none;
@@ -134,10 +189,27 @@
 
                         button {
                             font-size: 1rem;
-                            padding: 10px 1rem;
-                            margin-bottom: 1rem;
-                            width: 80%;
+                            padding: 12px 3rem;
+                            width: fit-content;
+                            margin-top: 2rem;
+                            border-radius: 100rem;
+
+                            &:last-child {
+                                display: none;
+                            }
                         }
+                    }
+
+                    .headline {
+                        margin: 1rem 0 0 0 !important;
+                        font-size: 1rem;
+                        text-align: center;
+                    }
+
+                    .title,
+                    .second {
+                        text-align: center;
+                        font-size: 2.3rem !important;
                     }
                 }
             }
@@ -170,35 +242,6 @@
                     color: #aaa6ff;
                     cursor: pointer;
                     border-bottom: 1px solid #aaa6ff;
-                }
-            }
-
-            @media (max-width: 1200px) {
-                & {
-                    padding: 0 2rem;
-
-                    &:first-child {
-                        margin: 2rem 0 0 0;
-                    }
-
-                    .title,
-                    .second {
-                        font-size: 3rem !important;
-                    }
-                }
-            }
-            @media (max-width: 425px) {
-                & {
-                    padding: 0 1rem;
-
-                    .headline {
-                        font-size: 1rem;
-                    }
-
-                    .title,
-                    .second {
-                        font-size: 2.1rem !important;
-                    }
                 }
             }
         }

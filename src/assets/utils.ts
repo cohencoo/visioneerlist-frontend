@@ -4,6 +4,15 @@ export const toastStyles = {
     color: "#fff"
 }
 
+export const toastSchema = (id: string): any => {
+    return {
+        id: id,
+        duration: 4000,
+        position: "top-center",
+        style: toastStyles
+    }
+}
+
 export function scrollToTop() {
     window.scrollTo({
         top: 0,

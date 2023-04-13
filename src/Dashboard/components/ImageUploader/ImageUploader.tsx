@@ -1,7 +1,6 @@
 import React, { useRef } from "react"
-import { compress, compression } from "../../../assets/utils"
+import { compress, compression, toastSchema } from "../../../assets/utils"
 import toast from "react-hot-toast"
-import { toastStyles } from "../../../assets/utils"
 
 interface ImageUploaderProps {
     button: React.ReactNode
@@ -26,10 +25,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ button, preview, onImageU
                 }
 
                 if (file.size > 9e6) {
-                    toast.error("Image size too large.", {
-                        position: "top-center",
-                        style: toastStyles
-                    })
+                    toast.error("Image size too large.", toastSchema("upload-error"))
                     return
                 }
 
@@ -52,17 +48,11 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ button, preview, onImageU
                     }
                     reader.readAsDataURL(file.file)
                 } else {
-                    toast.error("Image type not supported", {
-                        position: "top-center",
-                        style: toastStyles
-                    })
+                    toast.error("Image type not supported", toastSchema("upload-type-error"))
                 }
             }
         } catch (err) {
-            toast.error("Your image couldn't be uploaded", {
-                position: "top-center",
-                style: toastStyles
-            })
+            toast.error("Your image couldn't be uploaded", toastSchema("image-error"))
         }
     }
 
@@ -82,7 +72,6 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({ button, preview, onImageU
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         event.preventDefault()
         event.stopPropagation()
-
         const files = event.target.files as any
         handleImageUpload(files)
     }

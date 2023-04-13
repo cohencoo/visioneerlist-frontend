@@ -12,7 +12,7 @@ import Loading from "./components/Loading/Loading"
 import Settings from "./components/Settings/Settings"
 import ProfileCreator from "./components/ProfileCreator/ProfileCreator"
 import NewSearch from "./components/NewSearch/NewSearch"
-import { toastStyles } from "../assets/utils"
+import { toastSchema, toastStyles } from "../assets/utils"
 
 interface DashboardProps {
     profiles: any
@@ -85,10 +85,10 @@ const Dashboard: React.FC<DashboardProps> = ({
     useEffect(() => {
         if (Object.keys(profiles).length === 0) refetch()
         if (window.location.protocol !== "https:" && window.location.host !== "localhost:3000") {
-            toast.error("(CORS) Development server must be localhost:3000", {
-                position: "top-center",
-                style: toastStyles
-            })
+            toast.error(
+                "(CORS) Development server must be localhost:3000",
+                toastSchema("cors-error")
+            )
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

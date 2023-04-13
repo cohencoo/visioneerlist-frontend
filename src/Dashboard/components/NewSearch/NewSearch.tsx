@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react"
+import React, { useState, useRef, useEffect, useCallback } from "react"
 import styles from "./NewSearch.module.scss"
 
 const demoQueries = [
@@ -46,14 +46,15 @@ const NewSearch: React.FC<NewSearchProps> = ({
         return () => clearInterval(i)
     }, [qIndex])
 
-    useEffect(() => {
+    const handleAdvancedModeChange = useCallback(() => {
         if (!advancedMode) {
             setFilterBy("latest")
             setSearch("")
             setSearchLocation("")
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [advancedMode])
+    }, [advancedMode, setFilterBy, setSearch, setSearchLocation])
+
+    useEffect(() => handleAdvancedModeChange(), [handleAdvancedModeChange])
 
     return (
         <div className={styles.NewSearch}>

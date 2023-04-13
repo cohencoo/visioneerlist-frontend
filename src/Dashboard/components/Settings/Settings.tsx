@@ -1,11 +1,83 @@
 import React, { useRef, useState } from "react"
 import styles from "./Settings.module.scss"
-import { roundTo, toastStyles } from "../../../assets/utils"
+import { roundTo, toastSchema } from "../../../assets/utils"
 import axios from "axios"
 import { API_ROUTE } from "../../../App"
 import { toast } from "react-hot-toast"
 import ManagePreview from "./ManagePreview/ManagePreview"
 import Button from "../Button/Button"
+
+const StorageDB: React.FC<{ storage: number }> = ({ storage }) => {
+    return (
+        <p>
+            Database Storage:
+            <kbd>{storage} Mb</kbd> of <kbd>512 Mb</kbd>({roundTo((storage / 512) * 100, 2)}%)
+        </p>
+    )
+}
+
+interface LoginProps {
+    passwordRef: any
+    emailRef: any
+    login: any
+    verifying: boolean
+    newProfile: any
+}
+
+const Login: React.FC<LoginProps> = ({ passwordRef, emailRef, login, verifying, newProfile }) => {
+    return (
+        <div className={styles.login}>
+            <span className={styles.accountIcon}>
+                <span className="material-symbols-rounded">manage_accounts</span>
+            </span>
+            <h1>Login to manage your Profile Listing</h1>
+            <input maxLength={300} ref={emailRef} type="email" name="email" placeholder="Email" />
+            <input
+                maxLength={300}
+                ref={passwordRef}
+                type="password"
+                name="password"
+                placeholder="Password"
+            />
+            <Button
+                message={["Login", "Verifying..."]}
+                icon="login"
+                verifying={verifying}
+                action={() => login()}
+            />
+            <p className={styles.tip}>
+                Haven't got an account? You can create one by{" "}
+                <span onClick={() => newProfile()}>Creating a Profile Listing</span>
+            </p>
+        </div>
+    )
+}
+
+interface ProfileListingProps {
+    profileListings: any
+    emailRef: any
+    storage: any
+}
+
+const ProfileListings: React.FC<ProfileListingProps> = ({ profileListings, emailRef, storage }) => {
+    return (
+        <div className={styles.dashboard}>
+            <br />
+            <div className={styles.banner}>
+                <span className="material-symbols-rounded">waving_hand</span>
+                <div>
+                    <h2>Welcome Back,</h2>
+                    <h2>{emailRef.current?.value}</h2>
+                    {emailRef.current?.value === "cohencoombs@outlook.com" && (
+                        <StorageDB storage={storage} />
+                    )}
+                </div>
+            </div>
+            <p>These are your listed Profiles. Click one to manage.</p>
+            <div className={styles.grid}>{profileListings}</div>
+        </div>
+    )
+}
 
 interface SettingsProps {
     profiles: any
@@ -53,73 +125,30 @@ const Settings: React.FC<SettingsProps> = ({ profiles, refetch, setOverlay, newP
                 })
                 .catch(() => {
                     setVerifying(false)
-                    toast.error(`Login credentials were incorrect.`, {
-                        duration: 4000,
-                        position: "top-center",
-                        style: toastStyles
-                    })
+                    toast.error(`Login credentials were incorrect.`, toastSchema("auth-error"))
                 })
         } else {
-            toast.error(`Something went wrong. Please try again later.`, {
-                duration: 4000,
-                position: "top-center",
-                style: toastStyles
-            })
+            toast.error(`Something went wrong. Please try again later`, toastSchema("login-error"))
         }
     }
 
     return (
         <div className={styles.Settings}>
             {!profileListings ? (
-                <div className={styles.login}>
-                    <span className={styles.accountIcon}>
-                        <span className="material-symbols-rounded">manage_accounts</span>
-                    </span>
-                    <h1>Login to manage your Profile Listing</h1>
-                    <input
-                        maxLength={300}
-                        ref={emailRef}
-                        type="email"
-                        name="email"
-                        placeholder="Email"
-                    />
-                    <input
-                        maxLength={300}
-                        ref={passwordRef}
-                        type="password"
-                        name="password"
-                        placeholder="Password"
-                    />
-                    <Button
-                        message={["Login", "Verifying..."]}
-                        icon="login"
-                        verifying={verifying}
-                        action={() => login()}
-                    />
-                    <p className={styles.tip}>
-                        Haven't got an account? You can create one by{" "}
-                        <span onClick={() => newProfile()}>Creating a Profile Listing</span>
-                    </p>
-                </div>
+                <Login
+                    passwordRef={passwordRef}
+                    emailRef={emailRef}
+                    login={login}
+                    verifying={verifying}
+                    newProfile={newProfile}
+                />
             ) : (
-                <div className={styles.dashboard}>
-                    <br />
-                    <div className={styles.banner}>
-                        <span className="material-symbols-rounded">waving_hand</span>
-                        <div>
-                            <h2>Welcome Back,</h2>
-                            <h2>{emailRef.current?.value}</h2>
-                        </div>
-                    </div>
-                    <p>These are your listed Profiles. Click one to manage.</p>
-                    <div className={styles.grid}>{profileListings}</div>
-                </div>
+                <ProfileListings
+                    emailRef={emailRef}
+                    profileListings={profileListings}
+                    storage={storage}
+                />
             )}
-            <br />
-            <p>
-                Database Storage:
-                <kbd>{storage} Mb</kbd> of <kbd>512 Mb</kbd>({roundTo((storage / 512) * 100, 2)}%)
-            </p>
         </div>
     )
 }

@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from "react"
 import styles from "./ProfileViewer.module.scss"
 import placeholderUser from "../../../assets/user.png"
-import { capitalize, fixURL, readableDateTime, toastStyles } from "../../../assets/utils"
+import {
+    capitalize,
+    fixURL,
+    readableDateTime,
+    toastSchema,
+    toastStyles
+} from "../../../assets/utils"
 import { AI_ROUTE, MAP_ROUTE } from "../../../App"
 import axios from "axios"
 import PostCreator from "./components/PostCreator"
@@ -39,17 +45,9 @@ const ProfileViewer: React.FC<ProfileViewerProps> = ({
     function copyProfile() {
         function wasCopied(success: boolean) {
             if (success) {
-                toast.success("Copied to clipboard!", {
-                    duration: 2000,
-                    position: "top-center",
-                    style: toastStyles
-                })
+                toast.success("Copied to clipboard!", toastSchema("link-copied"))
             } else {
-                toast.error("Failed to copy to clipboard!", {
-                    duration: 2000,
-                    position: "top-center",
-                    style: toastStyles
-                })
+                toast.error("Failed to copy to clipboard!", toastSchema("link-failed"))
             }
         }
 
@@ -67,6 +65,7 @@ const ProfileViewer: React.FC<ProfileViewerProps> = ({
             </div>,
             {
                 icon: "🔗",
+                id: "copy-profile",
                 duration: 4000,
                 position: "top-center",
                 style: { ...toastStyles, cursor: "pointer" }
@@ -123,6 +122,11 @@ const ProfileViewer: React.FC<ProfileViewerProps> = ({
                         Manage Profile
                     </div>
                 </div>
+
+                {/* <div className={styles.boost} onClick={() => {}}>
+                    <span className="material-symbols-rounded">stacked_bar_chart</span>
+                    Boost Visibility
+                </div> */}
 
                 <div className={styles.details}>
                     <h2>About Us</h2>

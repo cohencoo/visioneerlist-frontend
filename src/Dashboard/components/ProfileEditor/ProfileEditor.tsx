@@ -5,7 +5,7 @@ import axios from "axios"
 import { API_ROUTE } from "../../../App"
 import toast from "react-hot-toast"
 import ImageUploader from "../ImageUploader/ImageUploader"
-import { toastStyles } from "../../../assets/utils"
+import { toastSchema, toastStyles } from "../../../assets/utils"
 import Button from "../Button/Button"
 
 let newProfileImage: string
@@ -59,19 +59,14 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
             .then(() => {
                 refetch(() => {
                     setOverlay(null)
-                    toast.success("Profile was Updated.", {
-                        duration: 4000,
-                        position: "top-center",
-                        style: toastStyles
-                    })
+                    toast.success("Profile was Updated.", toastSchema("profile-updated"))
                 })
             })
             .catch(() => {
-                toast.error("Something went wrong. Please try again later.", {
-                    duration: 4000,
-                    position: "top-center",
-                    style: toastStyles
-                })
+                toast.error(
+                    "Something went wrong. Please try again later.",
+                    toastSchema("edit-error")
+                )
             })
     }
 
@@ -107,7 +102,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
                 </h1>
 
                 <div className={styles.details}>
-                    <p className={styles.label}>Change Profile Image</p>
+                    <p className={styles.label}>Update Profile Image</p>
                     <div className={styles.imageUpload}>
                         <img
                             src={updateProfileImage || profile.image || placeholderUser}
@@ -119,7 +114,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
                                     <span className="material-symbols-rounded">
                                         add_photo_alternate
                                     </span>
-                                    Update Image
+                                    Upload
                                 </button>
                             }
                             preview={previewerRef}
@@ -203,21 +198,16 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
                                         refetch(() => {
                                             setOverlay(null)
                                             toast.dismiss(toastId)
-                                            toast.success("Profile was Deleted.", {
-                                                duration: 4000,
-                                                position: "top-center",
-                                                style: toastStyles
-                                            })
+                                            toast.success(
+                                                "Profile was Deleted.",
+                                                toastSchema("profile-deleted")
+                                            )
                                         })
                                     })
                                     .catch(() => {
                                         toast.error(
                                             "Something went wrong. Please try again later.",
-                                            {
-                                                duration: 4000,
-                                                position: "top-center",
-                                                style: toastStyles
-                                            }
+                                            toastSchema("delete-error")
                                         )
                                     })
                             }
