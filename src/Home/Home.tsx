@@ -43,7 +43,6 @@ const Home: React.FC<HomeProps> = ({ profiles, setProfiles, setApp }) => {
     return (
         <div className={styles.Home}>
             <Nav />
-            <div className={styles.banner}></div>
             <div className={styles.container}>
                 <div className={styles.globeContainer}>
                     <div>

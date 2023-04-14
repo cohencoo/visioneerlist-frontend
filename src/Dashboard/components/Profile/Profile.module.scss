@@ -35,8 +35,6 @@
             font-size: 1.5rem;
             margin: 0 0 -6px 0;
             width: fit-content;
-            border-bottom: 2px solid transparent;
-            transition: 0.1s;
         }
 
         .company {
@@ -73,14 +71,8 @@
     }
 
     .modifiers {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        display: flex;
-        gap: 5px;
-
         .hiring {
-            border-radius: 100rem;
+            border-radius: 0;
             padding: 0.2rem 1rem;
             font-size: 0.9rem;
             color: black;

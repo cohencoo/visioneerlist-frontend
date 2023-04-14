@@ -52,38 +52,6 @@
         }
     }
 
-    .banner::before {
-        content: "";
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: radial-gradient(
-                circle at 20% 60%,
-                rgba(252, 203, 255, 0.3) 14%,
-                transparent 14%
-            ),
-            radial-gradient(circle at 40% 20%, rgba(50, 180, 255, 0.3) 10%, transparent 10%),
-            radial-gradient(circle at 60% 50%, rgba(88, 169, 216, 0.3) 10%, transparent 10%),
-            radial-gradient(circle at 10% 20%, rgba(19, 0, 64, 0.3) 10%, transparent 10%),
-            radial-gradient(circle at 40% 60%, rgba(42, 0, 141, 0.3) 10%, transparent 10%),
-            radial-gradient(circle at 20% 90%, rgba(57, 27, 127, 0.3) 10%, transparent 10%),
-            radial-gradient(circle at 50% 80%, rgba(204, 97, 195, 0.3) 14%, transparent 14%);
-        filter: blur(10rem);
-        -webkit-filter: blur(10rem);
-        -moz-filter: blur(10rem);
-        -o-filter: blur(10rem);
-        -ms-filter: blur(10rem);
-
-        @media (min-width: 2400px) {
-            & {
-                filter: blur(600px);
-                -webkit-filter: blur(600px);
-            }
-        }
-    }
-
     .container {
         position: relative;
 
@@ -93,9 +61,20 @@
             align-items: center;
             overflow: hidden;
             min-height: 100vh;
+            background-image: radial-gradient(
+                    circle at 20% 60%,
+                    rgba(168, 133, 170, 0.08) 14%,
+                    transparent 40%
+                ),
+                radial-gradient(circle at 40% 20%, rgba(39, 124, 174, 0.08) 10%, transparent 40%),
+                radial-gradient(circle at 60% 50%, rgba(54, 117, 154, 0.08) 10%, transparent 40%),
+                radial-gradient(circle at 10% 20%, rgba(27, 10, 66, 0.08) 10%, transparent 40%),
+                radial-gradient(circle at 40% 60%, rgba(34, 12, 86, 0.08) 10%, transparent 40%),
+                radial-gradient(circle at 20% 90%, rgba(28, 12, 66, 0.08) 10%, transparent 40%),
+                radial-gradient(circle at 50% 80%, rgba(93, 37, 88, 0.08) 14%, transparent 40%);
 
             &:first-child {
-                margin-left: 5rem;
+                padding-left: 5rem;
             }
 
             .buttons {
@@ -142,7 +121,7 @@
 
             @media (max-width: 1200px) {
                 & {
-                    padding: 0 3rem;
+                    padding: 0 2rem !important;
                     text-align: center;
 
                     .productHunt {
@@ -151,10 +130,6 @@
                         left: 50%;
                         transform: translateX(-50%);
                         margin-bottom: 2rem;
-                    }
-
-                    &:first-child {
-                        margin: 0;
                     }
 
                     .title,

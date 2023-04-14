@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 3rem 0;
+    height: 280px;
 
     &::before {
         content: "";
@@ -37,18 +37,14 @@
 
     @media (max-width: 768px) {
         & {
-            padding: 2rem 0 1rem 0;
-
-            &::before {
-                filter: blur(4rem) !important;
-                -webkit-filter: blur(4rem) !important;
-            }
+            padding: 1rem;
 
             h1 {
                 font-size: 1.5rem;
             }
 
             .search {
+                margin: 0 auto !important;
                 padding: 10px 1rem !important;
             }
         }
@@ -126,6 +122,14 @@
             color: var(--subtitle);
             font-size: 1rem;
             font-family: inherit;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            cursor: pointer;
+            background-image: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 8 8"%3E%3Cpath fill="white" d="M1 2l3 3 3-3H1z"/%3E%3C/svg%3E');
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1rem 1rem;
         }
     }
 

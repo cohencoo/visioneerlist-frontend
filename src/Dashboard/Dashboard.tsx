@@ -212,28 +212,30 @@ const Dashboard: React.FC<DashboardProps> = ({
                 layoutScale={layoutScale}
                 setLayoutScale={setLayoutScale}
             />
-            <p className={styles.category}> {searchLabel()} </p>
-            <div
-                style={{
-                    gridTemplateColumns: layoutScale ? generateColumns(layoutScale) : undefined
-                }}
-                className={styles.dashboardContent}>
-                {Object.keys(profiles).length > 0 ? (
-                    filteredProfileKeys
-                        .reverse()
-                        .map((item: any, index: number) => (
-                            <Profile
-                                key={index}
-                                props={profiles[item]}
-                                profiles={profiles}
-                                refetch={refetch}
-                                setOverlay={setOverlay}
-                                settings={settings}
-                            />
-                        ))
-                ) : (
-                    <Loading />
-                )}
+            <div className={styles.container}>
+                <p className={styles.category}>{searchLabel()}</p>
+                <div
+                    style={{
+                        gridTemplateColumns: layoutScale ? generateColumns(layoutScale) : undefined
+                    }}
+                    className={styles.dashboardContent}>
+                    {Object.keys(profiles).length > 0 ? (
+                        filteredProfileKeys
+                            .reverse()
+                            .map((item: any, index: number) => (
+                                <Profile
+                                    key={index}
+                                    props={profiles[item]}
+                                    profiles={profiles}
+                                    refetch={refetch}
+                                    setOverlay={setOverlay}
+                                    settings={settings}
+                                />
+                            ))
+                    ) : (
+                        <Loading />
+                    )}
+                </div>
             </div>
         </div>
     )
