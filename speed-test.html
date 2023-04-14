@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Document</title>
+    </head>
+    <body>
+        <style>
+            body {
+                max-width: 800px;
+                margin: 0 auto;
+            }
+            input {
+                width: 100%;
+                margin: 10px 0;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            button {
+                width: 10rem;
+                padding: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                background: greenyellow;
+                cursor: pointer;
+            }
+        </style>
+        <h1>Server Vs Server comparison</h1>
+        <h3>Server 1:</h3>
+        <input
+            value="https://visioneerlist-backend.onrender.com/api/profiles"
+            placeholder="Server 1"
+            type="text"
+        />
+        <h3>Server 2:</h3>
+        <input
+            value="https://visioneerlist.herokuapp.com/api/profiles"
+            placeholder="Server 2"
+            type="text"
+        />
+        <br />
+        <br />
+        <button onclick="start()">Test</button>
+
+        <br /><br />
+
+        <h1 id="started"></h1>
+        <h1 id="s1"></h1>
+        <h1 id="s2"></h1>
+
+        <script>
+            function start() {
+                const s1 = document.querySelector("input").value
+                const s2 = document.querySelectorAll("input")[1].value
+                let s1Finished = 0
+                let s2Finished = 0
+
+                document.querySelector("#started").innerHTML = "Running Tests..."
+
+                const s1Time = new Date().getTime()
+                fetch(s1)
+                    .then((res) => res.text())
+                    .then((data) => {
+                        const s1TimeTaken = new Date().getTime() - s1Time
+                        s1Finished = s1TimeTaken
+                        document.querySelector("#s1").innerHTML = `Server 1 (${
+                            s1.split(".com")[0].split(".")[1]
+                        }) took ${s1TimeTaken}ms (${s1TimeTaken / 1000}s)`
+                    })
+
+                const s2Time = new Date().getTime()
+                fetch(s2)
+                    .then((res) => res.text())
+                    .then((data) => {
+                        const s2TimeTaken = new Date().getTime() - s2Time
+                        s2Finished = s2TimeTaken
+                        document.querySelector("#s2").innerHTML = `Server 2 (${
+                            s2.split(".com")[0].split(".")[1]
+                        }) took ${s2TimeTaken}ms (${s2TimeTaken / 1000}s)`
+                    })
+
+                const me = setInterval(() => {
+                    if (s1Finished && s2Finished) {
+                        clearInterval(me)
+                        document.querySelector("#started").innerHTML =
+                            "Difference:" +
+                            (s1Finished - s2Finished) +
+                            "ms" +
+                            " (" +
+                            (s1Finished - s2Finished) / 1000 +
+                            "s)" +
+                            "<br />" +
+                            "The fastest server is: " +
+                            (s1Finished < s2Finished
+                                ? s1.split(".com")[0].split(".")[1]
+                                : s2.split(".com")[0].split(".")[1])
+                    }
+                }, 100)
+            }
+        </script>
+    </body>
+</html>

@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.b19b44c6.css",
-    "main.js": "/static/js/main.c25a7085.js",
+    "main.css": "/static/css/main.8ecc4d5a.css",
+    "main.js": "/static/js/main.7cd4c736.js",
     "static/css/655.9887ac4e.chunk.css": "/static/css/655.9887ac4e.chunk.css",
     "static/js/655.4423e6f8.chunk.js": "/static/js/655.4423e6f8.chunk.js",
     "static/media/globe-texture.jpg": "/static/media/globe-texture.da273783100dfbfd07c0.jpg",
@@ -9,13 +9,13 @@
     "static/media/brand.svg": "/static/media/brand.82bf2d77f54594a90c88b49784995bcb.svg",
     "static/media/visioneer-list.svg": "/static/media/visioneer-list.906373c29cd449a0f90116e41a0ce47c.svg",
     "index.html": "/index.html",
-    "main.b19b44c6.css.map": "/static/css/main.b19b44c6.css.map",
-    "main.c25a7085.js.map": "/static/js/main.c25a7085.js.map",
+    "main.8ecc4d5a.css.map": "/static/css/main.8ecc4d5a.css.map",
+    "main.7cd4c736.js.map": "/static/js/main.7cd4c736.js.map",
     "655.9887ac4e.chunk.css.map": "/static/css/655.9887ac4e.chunk.css.map",
     "655.4423e6f8.chunk.js.map": "/static/js/655.4423e6f8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.b19b44c6.css",
-    "static/js/main.c25a7085.js"
+    "static/css/main.8ecc4d5a.css",
+    "static/js/main.7cd4c736.js"
   ]
 }
