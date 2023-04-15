@@ -44,6 +44,10 @@ body {
     -webkit-user-select: none;
 }
 
+.toast {
+    pointer-events: none !important;
+}
+
 * {
     box-sizing: border-box;
 }

@@ -185,7 +185,7 @@ const Dashboard: React.FC<DashboardProps> = ({
 
     return (
         <div className={styles.Dashboard}>
-            <Toaster />
+            <Toaster toastOptions={{ className: "toast" }} />
             <Header useMobile={window.innerWidth < 1168 && overlay} setOverlay={setOverlay} />
             <Sidebar
                 overlay={overlay}

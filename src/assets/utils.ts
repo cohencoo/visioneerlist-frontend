@@ -1,7 +1,8 @@
 export const toastStyles = {
     borderRadius: "10px",
     background: "var(--shade-2)",
-    color: "#fff"
+    color: "#fff",
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)"
 }
 
 export const toastSchema = (id: string): any => {
