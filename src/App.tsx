@@ -3,8 +3,8 @@ import Home from "./Home/Home"
 import Dashboard from "./Dashboard/Dashboard"
 
 export const AI_ROUTE = "https://visioneerlist-ai.coclub.repl.co"
-export const MAP_ROUTE = "https://visioneerlist-backend.onrender.com/maps/?q="
-export const API_ROUTE = "https://visioneerlist-backend.onrender.com"
+export const MAP_ROUTE = "https://visioneerlist.herokuapp.com/maps/?q="
+export const API_ROUTE = "https://visioneerlist.herokuapp.com"
 
 function App() {
     const [app, setApp] = useState("/")
