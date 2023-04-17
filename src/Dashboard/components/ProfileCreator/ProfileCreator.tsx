@@ -1,13 +1,13 @@
-import React, { useRef, useState } from "react"
+import React, { useState } from "react"
 import styles from "./ProfileCreator.module.scss"
-import placeholderUser from "../../../assets/user.png"
-import { toastSchema, uuid } from "../../../assets/utils"
+import { sanitizeInput, toastSchema, uuid } from "../../../assets/utils"
 import axios from "axios"
 import { API_ROUTE } from "../../../App"
 import toast from "react-hot-toast"
-import ImageUploader from "../ImageUploader/ImageUploader"
 import Memo from "./Memo"
 import Button from "../Button/Button"
+import Upload from "../Upload/Upload"
+import RichText from "../RichText/RichText"
 
 interface ProfileCreatorProps {
     refetch: any
@@ -15,7 +15,6 @@ interface ProfileCreatorProps {
 }
 
 const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) => {
-    const previewerRef = useRef<HTMLDivElement>(null)
     const [step, setStep] = useState(0)
     const [verifying, setVerifying] = useState(false)
     const [ownerEmail, setOwnerEmail] = useState("")
@@ -29,6 +28,7 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
         phone: "",
         email: "",
         description: "",
+        descriptionHTML: "",
         keywords: "",
         hiring: false,
         salaryRange: "",
@@ -110,30 +110,14 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                 </div>
                 <div style={{ display: step === 0 ? "block" : "none" }} className={styles.stage}>
                     <div className={styles.container}>
-                        <div className={styles.upload}>
-                            <ImageUploader
-                                button={
-                                    <div
-                                        style={{
-                                            width: "100%",
-                                            height: "100%",
-                                            position: "absolute"
-                                        }}></div>
-                                }
-                                preview={previewerRef}
-                                onImageUploaded={(url: string) =>
-                                    setFormData((prevState) => ({ ...prevState, image: url }))
-                                }
-                            />
-                            <div
-                                className={styles.preview}
-                                style={{ backgroundImage: `url(${placeholderUser})` }}
-                                ref={previewerRef}></div>
-                        </div>
-                        <div className={styles.tooltip}>Click to edit</div>
+                        <Upload
+                            size="20rem"
+                            onImageUploaded={(url: string) =>
+                                setFormData((prevState) => ({ ...prevState, image: url }))
+                            }
+                        />
                     </div>
                 </div>
-
                 <div style={{ display: step === 1 ? "block" : "none" }} className={styles.stage}>
                     <p className={styles.label}>Please enter a headline/title</p>
                     <div className={styles.flex}>
@@ -208,11 +192,16 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                 </div>
 
                 <div style={{ display: step === 4 ? "block" : "none" }} className={styles.stage}>
-                    <textarea
-                        maxLength={5000}
-                        onChange={(e) => handleInputChange("description", e.target.value)}
-                        placeholder="(max 1000 words) - Describe your business, services, and/or products."
-                        name="description"></textarea>
+                    <p className={styles.label}>
+                        (max 1000 words) - Describe your business, services, and/or products.
+                    </p>
+
+                    <RichText
+                        onEdit={(text: any) => {
+                            handleInputChange("description", sanitizeInput(text.outerText))
+                            handleInputChange("descriptionHTML", sanitizeInput(text.innerHTML))
+                        }}
+                    />
 
                     <p className={styles.label}>
                         (Optional) - Improve your search presence with keywords. Separate each
@@ -333,8 +322,17 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                                 )
                                 return
                             }
+
                             if (step === 4 && !formData.description.trim()) {
                                 notify("error", "Please provide a description.", "no-description")
+                                return
+                            }
+                            if (step === 4 && formData.description.trim().length > 5000) {
+                                notify(
+                                    "error",
+                                    "Your description cannot exceed 5000 characters (~1000 words)",
+                                    "description-long"
+                                )
                                 return
                             }
                             if (step < 6) setStep(step + 1)

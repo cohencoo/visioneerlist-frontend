@@ -7,6 +7,12 @@
     user-select: none;
     -webkit-user-select: none;
 
+    @media (max-width: 1168px) {
+        & {
+            max-width: 500px;
+        }
+    }
+
     .steps {
         display: flex;
         justify-content: space-between;
@@ -33,7 +39,7 @@
             display: none;
         }
 
-        @media (max-width: 800px) {
+        @media (max-width: 1168px) {
             & {
                 margin-top: 7rem;
                 flex-direction: column;
@@ -83,7 +89,7 @@
             }
         }
 
-        @media (max-width: 800px) {
+        @media (max-width: 1168px) {
             & {
                 width: 100%;
             }
@@ -142,94 +148,10 @@
         outline: none;
     }
 
-    textarea {
-        border: 1px solid var(--component);
-        border-radius: 10px;
-        background: transparent;
-        padding: 0.6rem 1rem 0.6rem 1rem;
-        width: 100%;
-        color: white;
-        margin-bottom: 0.5rem;
-        font-size: 1rem;
-        font-family: inherit;
-        outline: none;
-        min-height: 10rem;
-        max-height: 50rem;
-        resize: vertical;
-        height: 10rem;
-    }
-
     .container {
         display: flex;
         align-items: center;
         justify-content: center;
-
-        .upload {
-            transition: var(--transition);
-            cursor: pointer;
-            margin-bottom: 3rem;
-            position: relative;
-            width: 20rem;
-            height: 20rem;
-
-            @media (max-width: 800px) {
-                & {
-                    width: 14rem;
-                    height: 14rem;
-                }
-            }
-
-            .preview {
-                width: 100%;
-                height: 100%;
-                border-radius: 10px;
-                background-position: center;
-                background-size: cover;
-                background-repeat: no-repeat;
-            }
-
-            &:hover {
-                filter: brightness(0.8);
-            }
-        }
-
-        .tooltip {
-            background-color: var(--shade-1);
-            padding: 5px 2rem;
-            border-radius: 5px;
-            font-size: 0.95rem;
-            position: absolute;
-            bottom: 5px;
-            pointer-events: none;
-            animation: flash 350ms ease-in-out infinite alternate;
-
-            @media (max-width: 800px) {
-                & {
-                    bottom: calc(8rem - 5px);
-                }
-            }
-
-            @keyframes flash {
-                0% {
-                    background: #555;
-                }
-                100% {
-                    background: var(--shade-2);
-                }
-            }
-        }
-
-        .tooltip::before {
-            content: " ";
-            position: absolute;
-            bottom: 100%;
-            left: 50%;
-            margin-left: -7px;
-            border-width: 7px;
-            border-style: solid;
-            transform: rotate(-90deg);
-            border-color: transparent transparent transparent var(--shade-2);
-        }
     }
 }
 

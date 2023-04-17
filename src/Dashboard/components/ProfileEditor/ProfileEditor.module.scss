@@ -21,7 +21,7 @@
         height: 20rem;
     }
 
-    h1 {
+    .headline {
         max-width: 600px;
         margin: 2rem auto;
         text-overflow: ellipsis;
@@ -53,22 +53,13 @@
         left: 50%;
         text-align: left;
 
-        .imageUpload {
-            display: flex;
-            align-items: center;
+        a {
+            color: var(--link);
+        }
 
-            img {
-                margin-right: 2rem;
-                width: 5rem;
-                height: 5rem;
-                border-radius: 100rem;
-                object-fit: cover;
-            }
-            .changeImage {
-                padding: 12px 2rem;
-                margin-top: 0;
-                background: var(--component);
-            }
+        .imageUpload {
+            margin-top: -1rem;
+            width: fit-content;
         }
 
         .label {
@@ -97,23 +88,6 @@
             font-weight: 500;
             font-family: inherit;
             outline: none;
-        }
-
-        textarea {
-            border: 1px solid var(--component);
-            border-radius: 10px;
-            background: transparent;
-            padding: 0.6rem 1rem 0.6rem 1rem;
-            width: 100%;
-            color: white;
-            margin-bottom: 1rem;
-            font-size: 1rem;
-            font-family: inherit;
-            outline: none;
-            min-height: 10rem;
-            max-height: 50rem;
-            resize: vertical;
-            height: 10rem;
         }
 
         .checkBox {

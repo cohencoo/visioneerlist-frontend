@@ -10,9 +10,10 @@ import {
 } from "../../../assets/utils"
 import { AI_ROUTE, MAP_ROUTE } from "../../../App"
 import axios from "axios"
-import PostCreator from "./components/PostCreator"
+import PostCreator from "./components/PostCreator/PostCreator"
 import toast from "react-hot-toast"
 import cn from "clsx"
+import Post from "./components/Post/Post"
 
 interface ProfileViewerProps {
     profile: any
@@ -84,7 +85,7 @@ const ProfileViewer: React.FC<ProfileViewerProps> = ({
                     src={profile.image || placeholderUser}
                     alt={profile.title}
                 />
-                <h1>{profile.title}</h1>
+                <h1 className={styles.headline}>{profile.title}</h1>
 
                 <div className={styles.meta}>
                     <div>
@@ -123,16 +124,13 @@ const ProfileViewer: React.FC<ProfileViewerProps> = ({
                     </div>
                 </div>
 
-                {/* <div className={styles.boost} onClick={() => {}}>
-                    <span className="material-symbols-rounded">stacked_bar_chart</span>
-                    Boost Visibility
-                </div> */}
-
                 <div className={styles.details}>
                     <h2>About Us</h2>
                     <p
                         dangerouslySetInnerHTML={{
-                            __html: profile.description.replaceAll("\n", "<br>")
+                            __html:
+                                profile?.descriptionHTML ||
+                                profile?.description?.replaceAll("\n", "<br>")
                         }}
                         style={{ margin: "10px 0 0 0" }}></p>
                     {labelListing && (
@@ -235,20 +233,19 @@ const ProfileViewer: React.FC<ProfileViewerProps> = ({
                 </div>
                 <div className={cn(styles.postsContainer, styles.details)}>
                     <h2>Posts</h2>
-                    {!profile.posts && <p className={styles.nothing}>Nothing here yet.</p>}
+                    {(!profile.posts || profile?.posts?.length === 0) && (
+                        <p className={styles.nothing}>Nothing posted here yet.</p>
+                    )}
                     {profile?.posts?.map((post: any, index: any) => {
                         return (
-                            <div key={index} className={styles.post}>
-                                <h3>{post.title}</h3>
-                                <span className={styles.timestamp}>
-                                    {readableDateTime(post.date)} -
-                                    {" " + new Date(post.date).toLocaleDateString()}
-                                </span>
-                                <p
-                                    dangerouslySetInnerHTML={{
-                                        __html: post.description.replaceAll("\n", "<br>")
-                                    }}></p>
-                                {post.attachment && <img src={post.attachment} alt={post.title} />}
+                            <div key={index}>
+                                <Post
+                                    post={post}
+                                    refetch={refetch}
+                                    setOverlay={setOverlay}
+                                    profileId={profile._id}
+                                    index={index}
+                                />
                             </div>
                         )
                     })}

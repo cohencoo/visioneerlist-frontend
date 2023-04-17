@@ -14,6 +14,21 @@
             }
         }
 
+        @media (max-width: 768px) {
+            & {
+                margin: 2rem auto 0 auto;
+
+                .accountIcon {
+                    span {
+                        font-size: 4rem;
+                    }
+                }
+                h1 {
+                    font-size: 1.5rem !important;
+                }
+            }
+        }
+
         input {
             width: 100%;
             padding: 10px 1rem;
@@ -69,19 +84,22 @@
             }
 
             @media (max-width: 768px) {
-                h2 {
-                    font-size: 1.3rem !important;
+                & {
+                    flex-direction: column;
+                    text-align: center;
 
-                    &:last-child {
-                        font-size: 0.9rem !important;
+                    h2 {
+                        font-size: 1.3rem;
+                        margin: 0 auto;
                         text-overflow: ellipsis;
                         max-width: 200px;
                         overflow: hidden;
                     }
-                }
 
-                span {
-                    font-size: 3rem !important;
+                    span {
+                        margin: 1rem 0;
+                        font-size: 3rem;
+                    }
                 }
             }
         }

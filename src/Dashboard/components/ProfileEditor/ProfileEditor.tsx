@@ -4,11 +4,11 @@ import placeholderUser from "../../../assets/user.png"
 import axios from "axios"
 import { API_ROUTE } from "../../../App"
 import toast from "react-hot-toast"
-import ImageUploader from "../ImageUploader/ImageUploader"
-import { toastSchema, toastStyles } from "../../../assets/utils"
+import { sanitizeInput, toastSchema, toastStyles } from "../../../assets/utils"
 import Button from "../Button/Button"
+import Upload from "../Upload/Upload"
+import RichText from "../RichText/RichText"
 
-let newProfileImage: string
 interface ProfileEditorProps {
     profile: any
     refetch: any
@@ -17,28 +17,32 @@ interface ProfileEditorProps {
 
 const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOverlay }) => {
     const [isHiring, setIsHiring] = useState(profile.hiring)
-    const [updateProfileImage, setUpdateProfileImage] = useState("")
     const [verifying, setVerifying] = useState(false)
+    const [profileImage, setProfileImage] = useState(profile.image)
+    const [descriptionPlain, setDescriptionPlain] = useState(profile.description)
+    const [descriptionHTML, setDescriptionHTML] = useState(profile.descriptionHTML)
 
-    useEffect(() => {
-        newProfileImage = profile.image
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
-
-    const previewerRef = useRef<HTMLDivElement>(null)
     const editTitle = useRef<HTMLInputElement>(null)
     const editCompany = useRef<HTMLInputElement>(null)
     const editLocation = useRef<HTMLInputElement>(null)
     const editEmail = useRef<HTMLInputElement>(null)
     const editPhone = useRef<HTMLInputElement>(null)
     const editWebsite = useRef<HTMLInputElement>(null)
-    const editDescription = useRef<HTMLTextAreaElement>(null)
     const editHiring = useRef<HTMLInputElement>(null)
     const editSalary = useRef<HTMLInputElement>(null)
     const editEmploymentType = useRef<HTMLInputElement>(null)
 
     function complete() {
+        if (descriptionPlain.trim().length > 5000) {
+            toast.error(
+                "Description is too long. Please shorten it to 5000 characters or less.",
+                toastSchema("description-too-long")
+            )
+            return
+        }
+
         setVerifying(true)
+
         const update = {
             id: profile._id,
             title: editTitle.current!.value || profile.title,
@@ -47,8 +51,9 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
             email: editEmail.current!.value || profile.email,
             phone: editPhone.current!.value || profile.phone,
             website: editWebsite.current!.value || profile.website,
-            description: editDescription.current!.value || profile.description,
-            image: newProfileImage || profile.image,
+            description: descriptionPlain || profile.description,
+            descriptionHTML: descriptionHTML || profile.descriptionHTML,
+            image: profileImage || profile.image,
             hiring: editHiring.current!.checked || false,
             salaryRange: editSalary.current!.value || profile.salary,
             employmentType: editEmploymentType.current!.value || profile.employmentType
@@ -63,6 +68,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
                 })
             })
             .catch(() => {
+                setVerifying(false)
                 toast.error(
                     "Something went wrong. Please try again later.",
                     toastSchema("edit-error")
@@ -77,7 +83,6 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
         editEmail.current!.value = profile.email || ""
         editPhone.current!.value = profile.phone || ""
         editWebsite.current!.value = profile.website || ""
-        editDescription.current!.value = profile.description || ""
         editHiring.current!.checked = profile.hiring || false
         editSalary.current!.value = profile.salaryRange || ""
         editEmploymentType.current!.value = profile.employmentType || ""
@@ -88,40 +93,26 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
             <div className={styles.ProfileEditor}>
                 <div
                     className={styles.banner}
-                    style={{ background: `url(${profile.image || placeholderUser})` }}></div>
+                    style={{ background: `url(${profileImage || placeholderUser})` }}></div>
                 <img
                     className={styles.image}
-                    src={updateProfileImage || profile.image || placeholderUser}
+                    src={profileImage || placeholderUser}
                     alt={profile.title}
                 />
-                <div ref={previewerRef}></div>
 
-                <h1>
+                <h1 className={styles.headline}>
                     <span className="material-symbols-rounded">edit</span>
-                    Managing <i>'{profile.title}'</i>
+                    Managing '{profile.title}'
                 </h1>
 
                 <div className={styles.details}>
                     <p className={styles.label}>Update Profile Image</p>
                     <div className={styles.imageUpload}>
-                        <img
-                            src={updateProfileImage || profile.image || placeholderUser}
-                            alt={profile.title}
-                        />
-                        <ImageUploader
-                            button={
-                                <button className={styles.changeImage}>
-                                    <span className="material-symbols-rounded">
-                                        add_photo_alternate
-                                    </span>
-                                    Upload
-                                </button>
-                            }
-                            preview={previewerRef}
-                            onImageUploaded={(url: string) => {
-                                newProfileImage = url
-                                setUpdateProfileImage(url)
-                            }}
+                        <Upload
+                            size="8rem"
+                            editing={true}
+                            initialImage={profileImage || placeholderUser}
+                            onImageUploaded={(url: string) => setProfileImage(url)}
                         />
                     </div>
 
@@ -134,8 +125,19 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
                     <input maxLength={300} type="text" ref={editWebsite} placeholder="Website" />
                     <input maxLength={13} type="text" ref={editPhone} placeholder="Phone" />
                     <input maxLength={300} type="text" ref={editEmail} placeholder="Email" />
-                    <textarea maxLength={5000} ref={editDescription} placeholder="Description" />
 
+                    <br />
+                    <br />
+
+                    <RichText
+                        initialContent={profile.descriptionHTML || profile.description || ""}
+                        onEdit={(text: any) => {
+                            setDescriptionPlain(sanitizeInput(text.outerText))
+                            setDescriptionHTML(sanitizeInput(text.innerHTML))
+                        }}
+                    />
+
+                    <br />
                     <p className={styles.label}>
                         {isHiring
                             ? "You are currently Hiring. Click below to cancel."
@@ -205,6 +207,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
                                         })
                                     })
                                     .catch(() => {
+                                        toast.dismiss(toastId)
                                         toast.error(
                                             "Something went wrong. Please try again later.",
                                             toastSchema("delete-error")

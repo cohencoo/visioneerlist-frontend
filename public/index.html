@@ -57,18 +57,5 @@
             To begin the development, run `npm start` or `yarn start`.
             To create a production bundle, use `npm run build` or `yarn build`.
             -->
-        <script>
-            function analytics(response) {
-                console.log(
-                    `%cVisioneerList Analytics:\nSite Visits: ${response.value}`,
-                    `color: green; font-size: 20px; background: rgba(0, 50, 50, 0.8); padding: 5px; border-radius: 5px`
-                )
-            }
-        </script>
-        <script
-            async
-            defer
-            src="https://api.countapi.xyz/hit/visioneerlist/visits?callback=analytics"
-        ></script>
     </body>
 </html>

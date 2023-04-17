@@ -1,0 +1,87 @@
+.Upload {
+    cursor: pointer;
+
+    .editing {
+        border: 2px dashed var(--shade-2);
+        background-color: var(--component);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+
+        .uploadMemo {
+            margin: 0 1rem;
+            max-width: 200px;
+            min-height: 25px;
+            text-align: center;
+        }
+
+        @media (max-width: 800px) {
+            .uploadMemo {
+                margin: 0 !important;
+            }
+        }
+    }
+
+    .inactive {
+        border: 2px solid var(--shade-2);
+        border-radius: 10px;
+        padding: 10px;
+    }
+
+    .active {
+        padding: 1rem;
+        background-color: #1a1a1a;
+        border-radius: 10px;
+        text-align: center;
+        border: 2px dashed var(--shade-2);
+        animation: flash 350ms ease-in-out infinite alternate;
+
+        @keyframes flash {
+            0% {
+                background: var(--shade-2);
+            }
+            100% {
+                background: #1a1a1a;
+            }
+        }
+    }
+
+    .preview {
+        transition: var(--transition);
+        border-radius: 10px;
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+        aspect-ratio: 1/1;
+
+        @media (max-width: 1168px) {
+            & {
+                max-width: 14rem !important;
+                max-height: 14rem !important;
+            }
+        }
+
+        &:hover {
+            filter: brightness(0.8);
+        }
+    }
+
+    .uploadMemo {
+        font-size: 0.9rem;
+        color: var(--subtitle);
+        margin-top: 1rem;
+    }
+
+    .status {
+        font-size: 0.9rem;
+        color: var(--subtitle);
+        margin-top: 8px;
+        display: flex;
+        align-items: center;
+
+        span {
+            margin-right: 10px;
+            color: rgb(37, 199, 37);
+        }
+    }
+}

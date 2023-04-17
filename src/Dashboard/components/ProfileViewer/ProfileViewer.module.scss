@@ -21,7 +21,7 @@
         height: 20rem;
     }
 
-    h1 {
+    .headline {
         max-width: 600px;
         margin: 1rem auto;
         text-overflow: ellipsis;
@@ -137,6 +137,10 @@
             margin: 0 0 1rem 0;
         }
 
+        a {
+            color: var(--link);
+        }
+
         .label {
             font-weight: 500;
             font-size: 1rem;
@@ -239,36 +243,6 @@
 
         hr {
             margin: 1rem 0 0 0;
-        }
-
-        .post {
-            padding: 1rem 1rem 0 1rem;
-            margin: 1rem 0 0 0;
-            border-top: 1px solid var(--border);
-
-            h3 {
-                margin: 0 0 5px 0;
-                word-wrap: break-word;
-                word-break: break-word;
-            }
-
-            .timestamp {
-                color: var(--subtitle);
-                font-size: 0.9rem;
-                margin: 0;
-            }
-
-            p {
-                margin: 1rem 0 1rem 0;
-                word-wrap: break-word;
-                word-break: break-word;
-            }
-
-            img {
-                width: 100%;
-                height: auto;
-                border-radius: 1rem;
-            }
         }
     }
 

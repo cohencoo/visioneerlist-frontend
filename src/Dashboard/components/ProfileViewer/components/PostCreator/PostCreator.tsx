@@ -1,11 +1,11 @@
 import axios from "axios"
 import React, { useRef, useState } from "react"
-import { API_ROUTE } from "../../../../App"
-import { toastSchema, toastStyles, uuid } from "../../../../assets/utils"
-import ProfileViewer from "../ProfileViewer"
+import { API_ROUTE } from "../../../../../App"
+import { toastSchema, toastStyles, uuid } from "../../../../../assets/utils"
+import ProfileViewer from "../../ProfileViewer"
 import styles from "./PostCreator.module.scss"
-import ImageUploader from "../../ImageUploader/ImageUploader"
 import toast from "react-hot-toast"
+import Upload from "../../../Upload/Upload"
 
 interface PostCreatorProps {
     active: boolean
@@ -26,8 +26,8 @@ const PostCreator: React.FC<PostCreatorProps> = ({
 }) => {
     const titleInput = useRef<HTMLInputElement>(null)
     const descriptionInput = useRef<HTMLTextAreaElement>(null)
-    const [uploadedAttachment, setUploadedAttachment] = useState(null)
-    const attachmentRef = useRef<HTMLDivElement>(null)
+    const [uploadedAttachment, setUploadedAttachment] = useState("")
+    const [attachingFile, setAttachingFile] = useState(false)
 
     function complete() {
         if (titleInput.current?.value && descriptionInput.current?.value) {
@@ -41,7 +41,7 @@ const PostCreator: React.FC<PostCreatorProps> = ({
                 date: new Date().getTime(),
                 title: titleInput.current.value.trim(),
                 description: descriptionInput.current.value.trim(),
-                attachment: uploadedAttachment || ""
+                attachment: uploadedAttachment
             }
             axios
                 .post(API_ROUTE + "/api/create-post", ready)
@@ -84,35 +84,50 @@ const PostCreator: React.FC<PostCreatorProps> = ({
                 Post Something
             </button>
             <div style={{ display: active ? "block" : "none" }}>
-                <input maxLength={200} type="text" placeholder="Title" ref={titleInput} />
-                <textarea maxLength={5000} placeholder="Description" ref={descriptionInput} />
-                <div ref={attachmentRef}></div>
+                <div className={styles.inputContainer}>
+                    <span className="material-symbols-rounded">feed</span>
+                    <input maxLength={200} type="text" placeholder="Title" ref={titleInput} />
+                </div>
+                <fieldset>
+                    <legend>Write about your post</legend>
+                    <textarea
+                        maxLength={5000}
+                        placeholder="Write something here..."
+                        ref={descriptionInput}
+                    />
+                </fieldset>
+
+                {attachingFile && (
+                    <div style={{ margin: "0 0 1rem 0", width: "fit-content" }}>
+                        <Upload
+                            size="7rem"
+                            editing={true}
+                            onImageUploaded={(url: string) => setUploadedAttachment(url)}
+                        />
+                    </div>
+                )}
 
                 <div className={styles.flex}>
-                    {uploadedAttachment ? (
-                        <img
-                            src={uploadedAttachment as any}
-                            className={styles.attachment}
-                            alt="Profile"
-                        />
-                    ) : (
-                        <span></span>
-                    )}
                     <div className={styles.flex}>
-                        <div onClick={() => setActive(false)} className={styles.upload}>
+                        <div
+                            onClick={() => {
+                                setActive(false)
+                                setUploadedAttachment("")
+                                setAttachingFile(false)
+                            }}
+                            className={styles.upload}>
                             <span className="material-symbols-rounded">close</span>
                             <p>Cancel</p>
                         </div>
-                        <ImageUploader
-                            button={
-                                <div className={styles.upload}>
-                                    <span className="material-symbols-rounded">attach_file</span>{" "}
-                                    <p>Attach</p>{" "}
-                                </div>
-                            }
-                            preview={attachmentRef}
-                            onImageUploaded={(url) => setUploadedAttachment(url as any)}
-                        />
+                        <div
+                            onClick={() => setAttachingFile(true)}
+                            style={{
+                                display: attachingFile ? "none" : "flex"
+                            }}
+                            className={styles.upload}>
+                            <span className="material-symbols-rounded">attach_file</span>
+                            <p>Attach</p>
+                        </div>
                         <div onClick={() => complete()} className={styles.send}>
                             <span className="material-symbols-rounded">send</span>
                         </div>

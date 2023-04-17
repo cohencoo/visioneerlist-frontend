@@ -57,32 +57,10 @@
             cursor: pointer;
         }
 
-        .attachment {
-            width: 8rem;
-            height: 8rem;
-            border-radius: 5px;
-            object-fit: cover;
-        }
-
-        @media (max-width: 512px) {
-            .attachment {
-                width: 5rem;
-                height: 5rem;
-            }
+        @media (max-width: 500px) {
             .upload {
-                display: flex;
-                align-items: center;
-                text-align: center;
-                width: fit-content;
-                justify-content: center;
-                background: var(--component);
-                font-size: 2rem;
-                width: 3rem;
-                height: 3rem;
-                padding: 0;
-
                 span {
-                    margin: 0;
+                    margin-right: 0;
                 }
 
                 p {
@@ -92,34 +70,57 @@
         }
     }
 
-    input {
-        border: 1px solid var(--border);
-        background: transparent;
-        border-radius: 8px;
-        padding: 0.6rem 1rem 0.6rem 1rem;
-        width: 100%;
-        color: white;
-        margin-bottom: 0.5rem;
-        font-size: 1rem;
-        font-weight: 500;
-        font-family: inherit;
-        outline: none;
+    .inputContainer {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        span {
+            font-weight: 300;
+            vertical-align: middle;
+            font-size: 2rem;
+            margin: 0 1rem 0 0 !important;
+        }
+
+        input {
+            border: 1px solid var(--border);
+            background: transparent;
+            border-radius: 10px;
+            padding: 0.6rem 1rem 0.6rem 1rem;
+            width: 100%;
+            color: white;
+            font-size: 1rem;
+            font-weight: 500;
+            font-family: inherit;
+            outline: none;
+        }
     }
 
-    textarea {
-        border-radius: 8px;
-        border: 1px solid var(--border);
-        background: transparent;
-        padding: 0.6rem 1rem 0.6rem 1rem;
-        width: 100%;
-        color: white;
-        margin-bottom: 5px;
-        font-size: 1rem;
-        font-family: inherit;
-        outline: none;
-        min-height: 10rem;
-        max-height: 50rem;
-        resize: vertical;
-        height: 10rem;
+    fieldset {
+        border: 2px solid var(--border);
+        padding: 1rem;
+        margin: 0 0 1rem 0;
+        border-radius: 10px;
+
+        legend {
+            font-weight: 500;
+            color: var(--subtitle);
+        }
+
+        textarea {
+            border-radius: 0;
+            border: 0;
+            background: transparent;
+            padding: 0;
+            width: 100%;
+            color: white;
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            min-height: 10rem;
+            max-height: 50rem;
+            height: 10rem;
+            resize: vertical;
+        }
     }
 }

@@ -1,3 +1,5 @@
+import DOMPurify from "dompurify"
+
 export const toastStyles = {
     borderRadius: "10px",
     background: "var(--shade-2)",
@@ -65,6 +67,20 @@ export function readableDateTime(time: any) {
 export function fixURL(URL: any) {
     if (URL?.includes("http://") || URL?.includes("https://")) return URL
     else return "https://" + URL
+}
+
+export function removeHTML(text: string) {
+    const decoder = document.createElement("div")
+    decoder.innerHTML = text
+    return decoder.textContent
+}
+
+export function sanitizeInput(input: string) {
+    const config = {
+        ALLOWED_TAGS: ["b", "i", "u", "br", "p", "a", "h1", "h2", "h3"],
+        ALLOWED_ATTR: ["href"]
+    }
+    return DOMPurify.sanitize(input, config)
 }
 
 export function compression(imageSize: any, targetSizeMB: any) {
