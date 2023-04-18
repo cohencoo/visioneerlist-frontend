@@ -15,15 +15,12 @@
 
     section {
         border: 1px solid rgba(255, 255, 255, 0.08);
-        position: relative;
-        left: 50%;
-        transform: translateX(-50%);
         max-width: 900px;
         padding: 2rem 5vw;
         background: rgba(255, 255, 255, 0.03);
         text-align: center;
         border-radius: 1rem;
-        margin: 1rem 0 5rem 0;
+        margin: 1rem auto 5rem auto;
 
         h1 {
             color: var(--subtitle);

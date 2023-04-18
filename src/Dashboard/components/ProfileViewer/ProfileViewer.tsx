@@ -14,6 +14,7 @@ import PostCreator from "./components/PostCreator/PostCreator"
 import toast from "react-hot-toast"
 import cn from "clsx"
 import Post from "./components/Post/Post"
+import { ImageViewer } from "../ImageViewer/ImageViewer"
 
 interface ProfileViewerProps {
     profile: any
@@ -69,7 +70,7 @@ const ProfileViewer: React.FC<ProfileViewerProps> = ({
                 id: "copy-profile",
                 duration: 4000,
                 position: "top-center",
-                style: { ...toastStyles, cursor: "pointer" }
+                style: { ...toastStyles, cursor: "pointer", pointerEvents: "all" }
             }
         )
     }
@@ -107,10 +108,7 @@ const ProfileViewer: React.FC<ProfileViewerProps> = ({
                 </div>
 
                 <div className={styles.toolbar}>
-                    <div
-                        onClick={() => {
-                            window.open(fixURL(profile.website), "_blank")
-                        }}>
+                    <div onClick={() => window.open(fixURL(profile.website), "_blank")}>
                         <span className="material-symbols-rounded">captive_portal</span>
                         Visit Site
                     </div>
@@ -133,6 +131,26 @@ const ProfileViewer: React.FC<ProfileViewerProps> = ({
                                 profile?.description?.replaceAll("\n", "<br>")
                         }}
                         style={{ margin: "10px 0 0 0" }}></p>
+
+                    {profile.gallery && (
+                        <>
+                            <hr />
+                            <div className={styles.gallery}>
+                                {profile.gallery.map((image: string, index: number) => {
+                                    if (!image) return null
+                                    return (
+                                        <img
+                                            onClick={() => ImageViewer(image, "png")}
+                                            key={index}
+                                            src={image}
+                                            alt={profile.title}
+                                        />
+                                    )
+                                })}
+                            </div>
+                        </>
+                    )}
+
                     {labelListing && (
                         <>
                             <hr />

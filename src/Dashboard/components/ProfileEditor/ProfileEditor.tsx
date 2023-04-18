@@ -8,6 +8,7 @@ import { sanitizeInput, toastSchema, toastStyles } from "../../../assets/utils"
 import Button from "../Button/Button"
 import Upload from "../Upload/Upload"
 import RichText from "../RichText/RichText"
+import uploadPlaceholder from "../../../assets/attachment.png"
 
 interface ProfileEditorProps {
     profile: any
@@ -21,6 +22,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
     const [profileImage, setProfileImage] = useState(profile.image)
     const [descriptionPlain, setDescriptionPlain] = useState(profile.description)
     const [descriptionHTML, setDescriptionHTML] = useState(profile.descriptionHTML)
+    const [gallery, setGallery] = useState(profile.gallery || [])
 
     const editTitle = useRef<HTMLInputElement>(null)
     const editCompany = useRef<HTMLInputElement>(null)
@@ -54,6 +56,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
             description: descriptionPlain || profile.description,
             descriptionHTML: descriptionHTML || profile.descriptionHTML,
             image: profileImage || profile.image,
+            gallery: gallery || profile.gallery || [],
             hiring: editHiring.current!.checked || false,
             salaryRange: editSalary.current!.value || profile.salary,
             employmentType: editEmploymentType.current!.value || profile.employmentType
@@ -64,7 +67,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
             .then(() => {
                 refetch(() => {
                     setOverlay(null)
-                    toast.success("Profile was Updated.", toastSchema("profile-updated"))
+                    toast.success("Profile was Updated", toastSchema("profile-updated"))
                 })
             })
             .catch(() => {
@@ -74,6 +77,13 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
                     toastSchema("edit-error")
                 )
             })
+    }
+
+    function handleGalleryChange(index: number, url: string) {
+        setGallery((prev: any) => {
+            prev[index] = url
+            return prev
+        })
     }
 
     useEffect(() => {
@@ -110,7 +120,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
                     <div className={styles.imageUpload}>
                         <Upload
                             size="8rem"
-                            editing={true}
+                            customClass={"editing"}
                             initialImage={profileImage || placeholderUser}
                             onImageUploaded={(url: string) => setProfileImage(url)}
                         />
@@ -137,7 +147,33 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
                         }}
                     />
 
-                    <br />
+                    {gallery && (
+                        <>
+                            <hr />
+                            <p className={styles.label}>Click and Modify the Gallery below</p>
+                            <div className={styles.gallery}>
+                                <Upload
+                                    size="140px"
+                                    customClass={"gallery"}
+                                    initialImage={gallery[0] || uploadPlaceholder}
+                                    onImageUploaded={(url: string) => handleGalleryChange(0, url)}
+                                />
+                                <Upload
+                                    size="140px"
+                                    customClass={"gallery"}
+                                    initialImage={gallery[1] || uploadPlaceholder}
+                                    onImageUploaded={(url: string) => handleGalleryChange(1, url)}
+                                />
+                                <Upload
+                                    size="140px"
+                                    customClass={"gallery"}
+                                    initialImage={gallery[2] || uploadPlaceholder}
+                                    onImageUploaded={(url: string) => handleGalleryChange(2, url)}
+                                />
+                            </div>
+                        </>
+                    )}
+
                     <p className={styles.label}>
                         {isHiring
                             ? "You are currently Hiring. Click below to cancel."
@@ -190,7 +226,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
                     <p
                         onClick={() => {
                             if (window.confirm("Delete this profile?")) {
-                                const toastId = toast.loading("Deleting Profile..", {
+                                const toastId = toast.loading("Deleting Profile...", {
                                     position: "top-center",
                                     style: toastStyles
                                 })
@@ -201,7 +237,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
                                             setOverlay(null)
                                             toast.dismiss(toastId)
                                             toast.success(
-                                                "Profile was Deleted.",
+                                                "Profile was Deleted",
                                                 toastSchema("profile-deleted")
                                             )
                                         })

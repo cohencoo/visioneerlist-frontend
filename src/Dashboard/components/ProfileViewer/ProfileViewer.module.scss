@@ -1,12 +1,24 @@
 .ProfileViewer {
+    @media (max-width: 1024px) {
+        & {
+            margin-top: 2rem;
+        }
+    }
+
     .image {
-        width: 70vw;
+        width: 100%;
         max-width: 600px !important;
         height: auto;
         max-height: 110vh;
         object-fit: cover;
         border-radius: 1rem;
-        margin-bottom: 0.5rem;
+        margin-bottom: 10px;
+
+        @media (max-width: 1024px) {
+            & {
+                max-width: 400px !important;
+            }
+        }
     }
 
     .banner {
@@ -78,26 +90,11 @@
         }
     }
 
-    .boost {
-        background: var(--component);
-        padding: 10px 1rem;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        width: fit-content;
-        margin: 0 auto 2rem auto;
-
-        span {
-            margin-right: 10px;
-        }
-    }
-
     .meta {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-gap: 10px;
         width: fit-content;
-        margin: 1rem auto 2rem auto;
+        margin: 1.5rem auto;
         justify-content: center;
         max-width: 750px;
         align-items: center;
@@ -108,6 +105,13 @@
             text-overflow: ellipsis;
             overflow: hidden;
             white-space: nowrap;
+            padding: 0 10px;
+            border-right: 1px solid var(--border);
+
+            &:last-child {
+                border-right: 0;
+                padding: 0;
+            }
 
             span {
                 font-size: 1.5rem;
@@ -116,24 +120,34 @@
                 margin-bottom: 8px;
             }
         }
+
+        @media screen and (max-width: 1168px) {
+            & {
+                grid-template-columns: 1fr 1fr !important;
+                grid-gap: 10px;
+                font-size: 0.9rem;
+
+                div {
+                    border: 0;
+                    padding: 0;
+                }
+            }
+        }
     }
 
     .details {
         width: 100%;
         max-width: 800px;
         padding: 1rem;
-        margin: 1rem 0;
+        margin: 1rem auto;
         border-radius: 10px;
         background: var(--component);
-        position: relative;
-        transform: translateX(-50%);
-        left: 50%;
         text-align: left;
         text-overflow: ellipsis;
         overflow: hidden;
         word-wrap: break-word;
 
-        h2 {
+        h2:first-child {
             margin: 0 0 1rem 0;
         }
 
@@ -146,6 +160,32 @@
             font-size: 1rem;
             color: var(--subtitle);
             margin: 0 0 2rem 0;
+        }
+
+        .gallery {
+            margin: 1rem 0;
+            height: 14rem;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            overflow-x: scroll;
+            overflow-y: hidden;
+
+            img {
+                cursor: pointer;
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                border-radius: 10px;
+            }
+
+            @media (max-width: 768px) {
+                img {
+                    width: 70%;
+                    height: 100%;
+                }
+            }
         }
 
         .map {
@@ -243,13 +283,6 @@
 
         hr {
             margin: 1rem 0 0 0;
-        }
-    }
-
-    @media screen and (max-width: 1168px) {
-        .meta {
-            grid-template-columns: 1fr 1fr !important;
-            font-size: 0.9rem;
         }
     }
 }

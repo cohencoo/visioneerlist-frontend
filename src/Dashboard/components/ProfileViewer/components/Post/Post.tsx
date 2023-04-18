@@ -22,7 +22,7 @@ const Post: React.FC<PostInterface> = ({ post, setOverlay, refetch, index, profi
                 <span
                     onClick={() => {
                         if (window.confirm("Are you sure you want to delete this post?")) {
-                            const toastId = toast.loading("Deleting Post..", {
+                            const toastId = toast.loading("Deleting Post...", {
                                 position: "top-center",
                                 style: toastStyles
                             })
@@ -33,7 +33,7 @@ const Post: React.FC<PostInterface> = ({ post, setOverlay, refetch, index, profi
                                         setOverlay(null)
                                         toast.dismiss(toastId)
                                         toast.success(
-                                            "Post was Deleted.",
+                                            "Post was Deleted",
                                             toastSchema("post-deleted")
                                         )
                                     })

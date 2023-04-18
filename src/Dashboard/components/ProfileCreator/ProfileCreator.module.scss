@@ -9,6 +9,8 @@
 
     @media (max-width: 1168px) {
         & {
+            top: 0;
+            transform: translate(-50%, 0);
             max-width: 500px;
         }
     }
@@ -29,7 +31,7 @@
 
             span {
                 font-size: 5rem;
-                font-weight: 500;
+                font-weight: 400;
                 color: #ffcc00;
             }
         }
@@ -37,11 +39,12 @@
         .stage {
             width: 50%;
             display: none;
+            margin: auto 0;
         }
 
         @media (max-width: 1168px) {
             & {
-                margin-top: 7rem;
+                margin-top: 4rem;
                 flex-direction: column;
                 height: fit-content !important;
 
@@ -65,7 +68,8 @@
     }
 
     .navigation {
-        width: 47%;
+        width: 50%;
+        padding-right: 3rem;
 
         .container {
             display: flex;
@@ -92,6 +96,7 @@
         @media (max-width: 1168px) {
             & {
                 width: 100%;
+                padding: 0;
             }
         }
 
@@ -152,6 +157,15 @@
         display: flex;
         align-items: center;
         justify-content: center;
+    }
+
+    .galleryContainer {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        width: fit-content;
+        max-width: 100%;
+        overflow-x: scroll;
     }
 }
 

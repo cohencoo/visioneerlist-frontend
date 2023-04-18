@@ -1,10 +1,11 @@
 import DOMPurify from "dompurify"
 
-export const toastStyles = {
+export const toastStyles: any = {
     borderRadius: "10px",
     background: "var(--shade-2)",
     color: "#fff",
-    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)"
+    boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+    pointerEvents: "none"
 }
 
 export const toastSchema = (id: string): any => {

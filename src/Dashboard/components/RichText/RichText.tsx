@@ -29,6 +29,16 @@ const RichText: React.FC<RichTextProps> = ({ onEdit, initialContent }) => {
         document.execCommand("formatBlock", false, format)
     }
 
+    const handlePaste = (event: React.ClipboardEvent<HTMLDivElement>) => {
+        event.preventDefault()
+        const pastedText = event.clipboardData?.getData("text/plain") || ""
+        const tempDiv = document.createElement("div")
+        tempDiv.innerHTML = pastedText
+        const plainText = tempDiv.textContent || tempDiv.innerText
+        const contentWithLineBreaks = plainText.replace(/\n/g, "<br>")
+        document.execCommand("insertHTML", false, contentWithLineBreaks)
+    }
+
     return (
         <div className={styles.RichText}>
             <div className={styles.toolbar}>
@@ -55,7 +65,8 @@ const RichText: React.FC<RichTextProps> = ({ onEdit, initialContent }) => {
                 className={styles.textbox}
                 contentEditable={true}
                 dangerouslySetInnerHTML={{ __html: initialContent || "" }}
-                onBlur={(event) => onEdit(event.target)}></div>
+                onBlur={(event) => onEdit(event.target)}
+                onPaste={handlePaste}></div>
         </div>
     )
 }

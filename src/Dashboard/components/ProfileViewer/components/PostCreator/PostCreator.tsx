@@ -28,9 +28,11 @@ const PostCreator: React.FC<PostCreatorProps> = ({
     const descriptionInput = useRef<HTMLTextAreaElement>(null)
     const [uploadedAttachment, setUploadedAttachment] = useState("")
     const [attachingFile, setAttachingFile] = useState(false)
+    const [verifying, setVerifying] = useState(false)
 
     function complete() {
         if (titleInput.current?.value && descriptionInput.current?.value) {
+            setVerifying(true)
             const verification = toast.loading(`Verifying your post...`, {
                 position: "top-center",
                 style: toastStyles
@@ -47,6 +49,7 @@ const PostCreator: React.FC<PostCreatorProps> = ({
                 .post(API_ROUTE + "/api/create-post", ready)
                 .then(() => {
                     refetch((data: any) => {
+                        setVerifying(false)
                         toast.dismiss(verification)
                         toast.success(`Your post was uploaded`, toastSchema("post-uploaded"))
                         setActive(false)
@@ -61,6 +64,8 @@ const PostCreator: React.FC<PostCreatorProps> = ({
                     })
                 })
                 .catch(() => {
+                    setVerifying(false)
+                    toast.dismiss(verification)
                     toast.error(
                         "Something went wrong. Please try again later.",
                         toastSchema("post-error")
@@ -91,6 +96,7 @@ const PostCreator: React.FC<PostCreatorProps> = ({
                 <fieldset>
                     <legend>Write about your post</legend>
                     <textarea
+                        autoComplete={"post-description"}
                         maxLength={5000}
                         placeholder="Write something here..."
                         ref={descriptionInput}
@@ -101,7 +107,7 @@ const PostCreator: React.FC<PostCreatorProps> = ({
                     <div style={{ margin: "0 0 1rem 0", width: "fit-content" }}>
                         <Upload
                             size="7rem"
-                            editing={true}
+                            customClass={"editing"}
                             onImageUploaded={(url: string) => setUploadedAttachment(url)}
                         />
                     </div>
@@ -128,7 +134,12 @@ const PostCreator: React.FC<PostCreatorProps> = ({
                             <span className="material-symbols-rounded">attach_file</span>
                             <p>Attach</p>
                         </div>
-                        <div onClick={() => complete()} className={styles.send}>
+                        <div
+                            onClick={() => (verifying ? null : complete())}
+                            style={{
+                                filter: verifying ? "brightness(0.5)" : "none"
+                            }}
+                            className={styles.send}>
                             <span className="material-symbols-rounded">send</span>
                         </div>
                     </div>

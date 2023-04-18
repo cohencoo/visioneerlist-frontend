@@ -26,34 +26,49 @@ const Memo: React.FC<{ step: number; companyName: string }> = ({ step, companyNa
                 <>
                     <span className="material-symbols-rounded">open_in_new</span>
                     <h1>Where should visitors head to?</h1>
-                    <p>Please enter your company's website, or a social media link.</p>
+                    <p>(Optional) - Please enter your company's website, or a social media link.</p>
                 </>
             )
         case 3:
             return (
                 <>
-                    <span className="material-symbols-rounded">contact_support</span>
+                    <span className="material-symbols-rounded">help</span>
                     <h1>How should visitors contact {companyName || "you"}?</h1>
-                    <p>Please enter a relevant phone number, or email address.</p>
+                    <p>(Optional) - Please enter a relevant phone number, or email address.</p>
                 </>
             )
         case 4:
             return (
                 <>
-                    <span className="material-symbols-rounded">help</span>
+                    <span className="material-symbols-rounded">history_edu</span>
                     <h1>Tell visitors about {companyName || "your Profile Listing"}</h1>
-                    <p>Please provide a description for {companyName || "your Profile Listing"}.</p>
+                    <p>
+                        Here you've got the tools to showcase{" "}
+                        {companyName || "your Profile Listing"}. Write in the description editor to
+                        attract visitors in an instant.
+                    </p>
                 </>
             )
         case 5:
             return (
                 <>
-                    <span className="material-symbols-rounded">partner_exchange</span>
-                    <h1>Are you hiring?</h1>
-                    <p>If Yes, please provide a salary range and employment type.</p>
+                    <span className="material-symbols-rounded">gallery_thumbnail</span>
+                    <h1>Showcase what {companyName || "your Profile Listing"} offers</h1>
+                    <p>
+                        (Optional) - Let your visitors see what you have to offer. Upload up to 3
+                        images that showcase your work, services, or products.
+                    </p>
                 </>
             )
         case 6:
+            return (
+                <>
+                    <span className="material-symbols-rounded">partner_exchange</span>
+                    <h1>Are you hiring?</h1>
+                    <p>(Optional) - If Yes, please provide a salary range and employment type.</p>
+                </>
+            )
+        case 7:
             return (
                 <>
                     <span className="material-symbols-rounded">done_all</span>

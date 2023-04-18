@@ -1,0 +1,29 @@
+.ImageViewer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    cursor: pointer;
+
+    img {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%) scale(0.95);
+        height: 80vh;
+        width: auto;
+        max-width: 100vw !important;
+        object-fit: contain;
+        transition: 0.2s;
+        z-index: 100;
+    }
+
+    .loaded {
+        transform: translate(-50%, -50%) scale(1);
+    }
+}

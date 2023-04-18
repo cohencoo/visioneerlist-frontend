@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import styles from "./Profile.module.scss"
 import placeholderUser from "../../../assets/user.png"
 import ProfileViewer from "../ProfileViewer/ProfileViewer"
@@ -15,6 +15,8 @@ interface ProfileProps {
 }
 
 const Profile: React.FC<ProfileProps> = ({ props, profiles, refetch, setOverlay, settings }) => {
+    const [imageLoaded, setImageLoaded] = useState(false)
+
     return (
         <div
             onClick={() => {
@@ -30,8 +32,20 @@ const Profile: React.FC<ProfileProps> = ({ props, profiles, refetch, setOverlay,
             }}
             className={styles.Profile}>
             <div
-                style={{ background: `url(${props.image || placeholderUser})` }}
+                style={{
+                    backgroundImage: `url(${props.image || placeholderUser})`,
+                    opacity: imageLoaded ? 1 : 0
+                }}
                 className={styles.icon}>
+                {!imageLoaded && (
+                    <img
+                        src={props.image || placeholderUser}
+                        onLoad={() => setImageLoaded(true)}
+                        onError={() => setImageLoaded(true)}
+                        style={{ display: "none" }}
+                        alt="Profile"
+                    />
+                )}
                 <div className={styles.modifiers}>
                     {props.hiring && (
                         <div className={styles.hiring}>Actively Hiring • Apply here</div>

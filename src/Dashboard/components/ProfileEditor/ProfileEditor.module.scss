@@ -1,12 +1,24 @@
 .ProfileEditor {
+    @media (max-width: 1024px) {
+        & {
+            margin-top: 2rem;
+        }
+    }
+
     .image {
-        width: 70vw;
+        width: 100%;
         max-width: 600px !important;
         height: auto;
         max-height: 110vh;
         object-fit: cover;
         border-radius: 1rem;
-        margin-bottom: 0;
+        margin-bottom: 10px;
+
+        @media (max-width: 1024px) {
+            & {
+                max-width: 400px !important;
+            }
+        }
     }
 
     .banner {
@@ -45,13 +57,13 @@
         width: 100%;
         max-width: 800px;
         padding: 1rem;
-        margin: 1rem 0;
+        margin: 1rem auto;
         border-radius: 10px;
         background: var(--component);
-        position: relative;
-        transform: translateX(-50%);
-        left: 50%;
         text-align: left;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        word-wrap: break-word;
 
         a {
             color: var(--link);
@@ -88,6 +100,15 @@
             font-weight: 500;
             font-family: inherit;
             outline: none;
+        }
+
+        .gallery {
+            margin: 0 0 1rem 0;
+            height: 10rem;
+            width: 100%;
+            display: flex;
+            gap: 10px;
+            overflow-x: scroll;
         }
 
         .checkBox {

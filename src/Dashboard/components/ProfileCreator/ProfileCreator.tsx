@@ -8,6 +8,7 @@ import Memo from "./Memo"
 import Button from "../Button/Button"
 import Upload from "../Upload/Upload"
 import RichText from "../RichText/RichText"
+import uploadPlaceholder from "../../../assets/attachment.png"
 
 interface ProfileCreatorProps {
     refetch: any
@@ -30,6 +31,7 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
         description: "",
         descriptionHTML: "",
         keywords: "",
+        gallery: ["", "", ""],
         hiring: false,
         salaryRange: "",
         employmentType: "",
@@ -99,6 +101,13 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
         setFormData((prevState) => ({
             ...prevState,
             [name]: name === "hiring" ? Boolean(value) : value
+        }))
+    }
+
+    const handleGalleryChange = (index: number, value: any) => {
+        setFormData((prevState) => ({
+            ...prevState,
+            gallery: prevState.gallery.map((item, i) => (i === index ? value : item))
         }))
     }
 
@@ -193,7 +202,8 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
 
                 <div style={{ display: step === 4 ? "block" : "none" }} className={styles.stage}>
                     <p className={styles.label}>
-                        (max 1000 words) - Describe your business, services, and/or products.
+                        (max 1000 words) - Describe your business, services, and/or products if
+                        applicable.
                     </p>
 
                     <RichText
@@ -220,6 +230,32 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                 </div>
 
                 <div style={{ display: step === 5 ? "block" : "none" }} className={styles.stage}>
+                    <p className={styles.label}>
+                        Add up to 3 images to showcase your business, services, and/or products.
+                    </p>
+                    <div className={styles.galleryContainer}>
+                        <Upload
+                            size="140px"
+                            customClass={"gallery"}
+                            initialImage={uploadPlaceholder}
+                            onImageUploaded={(url: string) => handleGalleryChange(0, url)}
+                        />
+                        <Upload
+                            size="140px"
+                            customClass={"gallery"}
+                            initialImage={uploadPlaceholder}
+                            onImageUploaded={(url: string) => handleGalleryChange(1, url)}
+                        />
+                        <Upload
+                            size="140px"
+                            customClass={"gallery"}
+                            initialImage={uploadPlaceholder}
+                            onImageUploaded={(url: string) => handleGalleryChange(2, url)}
+                        />
+                    </div>
+                </div>
+
+                <div style={{ display: step === 6 ? "block" : "none" }} className={styles.stage}>
                     <p className={styles.label}>
                         Are you currently hiring?
                         <br />
@@ -269,7 +305,7 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                     )}
                 </div>
 
-                <div style={{ display: step === 6 ? "block" : "none" }} className={styles.stage}>
+                <div style={{ display: step === 7 ? "block" : "none" }} className={styles.stage}>
                     <p className={styles.label}> Email </p>
                     <input
                         maxLength={300}
@@ -309,7 +345,7 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                         <span className="material-symbols-rounded">arrow_back</span>
                     </button>
                     <button
-                        style={{ display: step === 6 ? "none" : undefined }}
+                        style={{ display: step === 7 ? "none" : undefined }}
                         onClick={() => {
                             if (
                                 step === 1 &&
@@ -335,14 +371,14 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                                 )
                                 return
                             }
-                            if (step < 6) setStep(step + 1)
+                            if (step < 7) setStep(step + 1)
                         }}>
                         Next
                         <span className="material-symbols-rounded">arrow_forward</span>
                     </button>
                 </div>
                 <div style={{ opacity: step > 0 ? 1 : 0 }} className={styles.progress}>
-                    <div style={{ width: `${(step / 6) * 100}%` }}></div>
+                    <div style={{ width: `${(step / 7) * 100}%` }}></div>
                 </div>
             </div>
         </div>
