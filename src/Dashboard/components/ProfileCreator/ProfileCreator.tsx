@@ -325,14 +325,14 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
 
                     <Button
                         verifying={verifying}
-                        message={["Add Profile", "Verifying your post..."]}
+                        message={["Add Profile", "Verifying your Listing..."]}
                         icon={"add_business"}
                         action={createProfile}
                     />
 
                     <p className={styles.label}>
-                        By creating a Profile, you warrant that the information provided is truthful
-                        and up to date.
+                        By creating a Profile Listing, you warrant that the information provided is
+                        truthful and up to date.
                     </p>
                 </div>
             </div>

@@ -6,9 +6,9 @@ const Memo: React.FC<{ step: number; companyName: string }> = ({ step, companyNa
             return (
                 <>
                     <span className="material-symbols-rounded">avg_pace</span>
-                    <h1>Maximize Your Potential: Create a Professional Profile in Seconds</h1>
+                    <h1>Maximize Your Potential: Create a Professional Listing in Seconds</h1>
                     <p>
-                        Let's start with the forefront of your Profile, the image. Use an image that
+                        Let's start with the forefront of your Listing, the image. Use an image that
                         represents your business or brand.
                     </p>
                 </>
@@ -17,8 +17,11 @@ const Memo: React.FC<{ step: number; companyName: string }> = ({ step, companyNa
             return (
                 <>
                     <span className="material-symbols-rounded">badge</span>
-                    <h1>What's your Profile called?</h1>
-                    <p>Give your Profile a title that best represents your business/company.</p>
+                    <h1>What's your Listing called?</h1>
+                    <p>
+                        Give your Profile Listing a title that best represents your
+                        business/company.
+                    </p>
                 </>
             )
         case 2:

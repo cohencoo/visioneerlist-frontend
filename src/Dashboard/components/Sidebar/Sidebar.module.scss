@@ -11,6 +11,59 @@
     user-select: none;
     -webkit-user-select: none;
 
+    .tooltip {
+        position: absolute;
+        left: 4rem;
+        top: -1rem;
+        width: 300px;
+        height: fit-content;
+        padding: 1rem;
+        background: #227eff;
+        border-radius: 8px;
+        z-index: 1;
+        animation: tutorial 1s;
+
+        @keyframes tutorial {
+            0% {
+                opacity: 0;
+                transform: translateX(-10px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        p {
+            margin: 0 0 10px 0;
+            font-weight: 600;
+        }
+
+        button {
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: transparent;
+            color: #fff;
+            font-size: 0.9rem;
+            width: 30px;
+            padding: 8px;
+            margin: 8px 0 0 0;
+            font-weight: 600;
+        }
+
+        &:after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 100%;
+            margin-top: -10px;
+            border-width: 10px;
+            border-style: solid;
+            border-color: transparent #227eff transparent transparent;
+        }
+    }
+
     .logo {
         margin: 8px 0 -5px 8px;
         cursor: pointer;

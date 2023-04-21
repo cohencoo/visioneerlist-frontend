@@ -25,6 +25,13 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
+@font-face {
+    font-family: "Material Symbols Rounded";
+    src: url("https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200")
+        format("woff2");
+    font-display: swap;
+}
+
 .material-symbols-rounded {
     font-family: "Material Symbols Rounded";
     font-weight: normal;

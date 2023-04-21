@@ -132,7 +132,8 @@ const ProfileViewer: React.FC<ProfileViewerProps> = ({
                         }}
                         style={{ margin: "10px 0 0 0" }}></p>
 
-                    {profile.gallery && (
+                    {/* If it is of size, we assume the profile has a gallery */}
+                    {JSON.stringify(profile?.gallery)?.length > 20 && (
                         <>
                             <hr />
                             <div className={styles.gallery}>
