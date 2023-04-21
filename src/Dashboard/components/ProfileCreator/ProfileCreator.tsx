@@ -332,7 +332,7 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
 
                     <p className={styles.label}>
                         By creating a Profile Listing, you warrant that the information provided is
-                        truthful and up to date.
+                        truthful and up-to-date.
                     </p>
                 </div>
             </div>

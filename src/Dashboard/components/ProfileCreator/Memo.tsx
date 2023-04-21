@@ -6,7 +6,9 @@ const Memo: React.FC<{ step: number; companyName: string }> = ({ step, companyNa
             return (
                 <>
                     <span className="material-symbols-rounded">avg_pace</span>
-                    <h1>Maximize Your Potential: Create a Professional Listing in Seconds</h1>
+                    <h1>
+                        Maximize Your Potential: Create a Professional Profile Listing in Seconds
+                    </h1>
                     <p>
                         Let's start with the forefront of your Listing, the image. Use an image that
                         represents your business or brand.
