@@ -122,7 +122,8 @@ const Upload: React.FC<UploadProps> = ({ size, onImageUploaded, initialImage, cu
                             ? `url(${loaderIcon})`
                             : `url(${image || placeholderImage})`,
                         width: size || "20rem",
-                        height: size || "20rem"
+                        height: size || "20rem",
+                        borderRadius: !customClass ? undefined : "10px 0 0 10px"
                     }}
                 />
                 <div

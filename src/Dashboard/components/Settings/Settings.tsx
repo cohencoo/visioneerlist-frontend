@@ -6,15 +6,7 @@ import { API_ROUTE } from "../../../App"
 import { toast } from "react-hot-toast"
 import ManagePreview from "./ManagePreview/ManagePreview"
 import Button from "../Button/Button"
-
-const StorageDB: React.FC<{ storage: number }> = ({ storage }) => {
-    return (
-        <p>
-            Database Storage:
-            <kbd>{storage} Mb</kbd> of <kbd>512 Mb</kbd>({roundTo((storage / 512) * 100, 2)}%)
-        </p>
-    )
-}
+import ProfileEditor from "../ProfileEditor/ProfileEditor"
 
 interface LoginProps {
     passwordRef: any
@@ -69,7 +61,9 @@ const ProfileListings: React.FC<ProfileListingProps> = ({ profileListings, email
                     <h2>Welcome Back,</h2>
                     <h2>{emailRef.current?.value}</h2>
                     {emailRef.current?.value === "cohencoombs@outlook.com" && (
-                        <StorageDB storage={storage} />
+                        <p>
+                            DB usage: <kbd>{storage} Mb</kbd>{" "}
+                        </p>
                     )}
                 </div>
             </div>
@@ -84,9 +78,10 @@ interface SettingsProps {
     refetch: any
     setOverlay: any
     newProfile: any
+    id?: string
 }
 
-const Settings: React.FC<SettingsProps> = ({ profiles, refetch, setOverlay, newProfile }) => {
+const Settings: React.FC<SettingsProps> = ({ profiles, refetch, setOverlay, newProfile, id }) => {
     const storage = roundTo(JSON.stringify(profiles).length / 1000000, 2)
     const emailRef = useRef<HTMLInputElement>(null)
     const passwordRef = useRef<HTMLInputElement>(null)
@@ -106,6 +101,16 @@ const Settings: React.FC<SettingsProps> = ({ profiles, refetch, setOverlay, newP
                     password: passwordRef.current.value
                 })
                 .then((res) => {
+                    if (id) {
+                        setOverlay(
+                            <ProfileEditor
+                                refetch={refetch}
+                                setOverlay={setOverlay}
+                                profile={profiles[id]}
+                            />
+                        )
+                        return
+                    }
                     setProfileListings(
                         res.data.profiles.reverse().map((id: string, index: number) => {
                             if (profiles.hasOwnProperty(id)) {

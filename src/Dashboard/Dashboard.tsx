@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import axios from "axios"
 import styles from "./Dashboard.module.scss"
 import { API_ROUTE } from "../App"
@@ -33,6 +33,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     const [autoLaunch, setAutoLaunch] = useState(false)
     const [overlay, setOverlay] = useState<any>(null)
     const [layoutScale, setLayoutScale] = useState(0)
+    const overlayRef = useRef<HTMLDivElement>(null)
 
     function refetch(callback?: any) {
         axios
@@ -63,13 +64,15 @@ const Dashboard: React.FC<DashboardProps> = ({
                 )
             })
     }
-    function settings() {
+
+    function settings(id?: string) {
         setOverlay(
             <Settings
                 newProfile={newProfile}
                 refetch={refetch}
                 setOverlay={setOverlay}
                 profiles={profiles}
+                id={id}
             />
         )
     }
@@ -78,6 +81,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     }
 
     useEffect(() => {
+        overlayRef?.current?.scrollTo({ top: 0 })
         if (overlay) document.body.style.overflowY = "hidden"
         else document.body.style.overflowY = "auto"
     }, [overlay])
@@ -200,6 +204,7 @@ const Dashboard: React.FC<DashboardProps> = ({
                     opacity: overlay ? 1 : 0,
                     transform: overlay ? "translateX(0)" : "translateX(100%)"
                 }}
+                ref={overlayRef}
                 className={styles.overlay}>
                 {overlay}
             </div>

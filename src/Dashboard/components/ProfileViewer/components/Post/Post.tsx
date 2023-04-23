@@ -4,6 +4,8 @@ import { readableDateTime, toastSchema, toastStyles } from "../../../../../asset
 import { toast } from "react-hot-toast"
 import { API_ROUTE } from "../../../../../App"
 import axios from "axios"
+import ImageLoader from "../../../ImageLoader/ImageLoader"
+import { ImageViewer } from "../../../ImageViewer/ImageViewer"
 
 interface PostInterface {
     post: any
@@ -55,7 +57,13 @@ const Post: React.FC<PostInterface> = ({ post, setOverlay, refetch, index, profi
                 dangerouslySetInnerHTML={{
                     __html: post.description.replaceAll("\n", "<br>")
                 }}></p>
-            {post.attachment && <img src={post.attachment} alt={post.title} />}
+            {post.attachment && (
+                <ImageLoader
+                    onClick={() => ImageViewer(post.attachment, "png")}
+                    loadingStyles={{ maxHeight: "300px" }}
+                    src={post.attachment}
+                />
+            )}
         </div>
     )
 }

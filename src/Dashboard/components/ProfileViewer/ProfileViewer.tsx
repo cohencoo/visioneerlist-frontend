@@ -15,6 +15,7 @@ import toast from "react-hot-toast"
 import cn from "clsx"
 import Post from "./components/Post/Post"
 import { ImageViewer } from "../ImageViewer/ImageViewer"
+import ImageLoader from "../ImageLoader/ImageLoader"
 
 interface ProfileViewerProps {
     profile: any
@@ -81,11 +82,18 @@ const ProfileViewer: React.FC<ProfileViewerProps> = ({
                 <div
                     className={styles.banner}
                     style={{ background: `url(${profile.image || placeholderUser})` }}></div>
-                <img
+
+                <ImageLoader
                     className={styles.image}
+                    loadingStyles={{
+                        margin: "0 auto",
+                        maxWidth: "600px",
+                        maxHeight: "300px"
+                    }}
+                    onClick={() => ImageViewer(profile.image, "png")}
                     src={profile.image || placeholderUser}
-                    alt={profile.title}
                 />
+
                 <h1 className={styles.headline}>{profile.title}</h1>
 
                 <div className={styles.meta}>
@@ -116,7 +124,7 @@ const ProfileViewer: React.FC<ProfileViewerProps> = ({
                         <span className="material-symbols-rounded">share</span>
                         Share
                     </div>
-                    <div onClick={() => settings()}>
+                    <div onClick={() => settings(profile._id)}>
                         <span className="material-symbols-rounded">app_registration</span>
                         Manage Profile
                     </div>
@@ -132,19 +140,16 @@ const ProfileViewer: React.FC<ProfileViewerProps> = ({
                         }}
                         style={{ margin: "10px 0 0 0" }}></p>
 
-                    {/* If it is of size, we assume the profile has a gallery */}
-                    {JSON.stringify(profile?.gallery)?.length > 20 && (
+                    {profile?.gallery?.filter((i: any) => i !== "")?.length > 0 && (
                         <>
-                            <hr />
                             <div className={styles.gallery}>
                                 {profile.gallery.map((image: string, index: number) => {
                                     if (!image) return null
                                     return (
-                                        <img
+                                        <ImageLoader
                                             onClick={() => ImageViewer(image, "png")}
                                             key={index}
                                             src={image}
-                                            alt={profile.title}
                                         />
                                     )
                                 })}

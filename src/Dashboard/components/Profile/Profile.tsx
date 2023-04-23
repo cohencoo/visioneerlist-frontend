@@ -5,6 +5,7 @@ import ProfileViewer from "../ProfileViewer/ProfileViewer"
 import { readableDateTime } from "../../../assets/utils"
 import { API_ROUTE } from "../../../App"
 import axios from "axios"
+import cn from "clsx"
 
 interface ProfileProps {
     props: any
@@ -15,7 +16,7 @@ interface ProfileProps {
 }
 
 const Profile: React.FC<ProfileProps> = ({ props, profiles, refetch, setOverlay, settings }) => {
-    const [imageLoaded, setImageLoaded] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     return (
         <div
@@ -30,22 +31,19 @@ const Profile: React.FC<ProfileProps> = ({ props, profiles, refetch, setOverlay,
                     />
                 )
             }}
-            className={styles.Profile}>
+            className={cn(styles.Profile, loading ? styles.ProfileLoading : "")}>
             <div
                 style={{
                     backgroundImage: `url(${props.image || placeholderUser})`,
-                    opacity: imageLoaded ? 1 : 0
+                    opacity: loading ? 0 : 1
                 }}
                 className={styles.icon}>
-                {!imageLoaded && (
-                    <img
-                        src={props.image || placeholderUser}
-                        onLoad={() => setImageLoaded(true)}
-                        onError={() => setImageLoaded(true)}
-                        style={{ display: "none" }}
-                        alt="Profile"
-                    />
-                )}
+                <img
+                    src={props.image || placeholderUser}
+                    onLoad={() => setLoading(false)}
+                    style={{ display: "none" }}
+                    alt="Profile"
+                />
                 <div className={styles.modifiers}>
                     {props.hiring && (
                         <div className={styles.hiring}>Actively Hiring • Apply here</div>

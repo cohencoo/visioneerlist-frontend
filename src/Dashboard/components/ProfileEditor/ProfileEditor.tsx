@@ -9,6 +9,7 @@ import Button from "../Button/Button"
 import Upload from "../Upload/Upload"
 import RichText from "../RichText/RichText"
 import uploadPlaceholder from "../../../assets/attachment.png"
+import ImageLoader from "../ImageLoader/ImageLoader"
 
 interface ProfileEditorProps {
     profile: any
@@ -104,15 +105,20 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
                 <div
                     className={styles.banner}
                     style={{ background: `url(${profileImage || placeholderUser})` }}></div>
-                <img
+
+                <ImageLoader
                     className={styles.image}
+                    loadingStyles={{
+                        margin: "0 auto",
+                        maxWidth: "600px",
+                        maxHeight: "300px"
+                    }}
                     src={profileImage || placeholderUser}
-                    alt={profile.title}
                 />
 
                 <h1 className={styles.headline}>
                     <span className="material-symbols-rounded">edit</span>
-                    Managing '{profile.title}'
+                    Managing: {profile.title}
                 </h1>
 
                 <div className={styles.details}>
@@ -150,7 +156,9 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
                     {gallery && (
                         <>
                             <hr />
-                            <p className={styles.label}>Click and Modify the Gallery below</p>
+                            <p className={styles.label}>
+                                Click to modify your Showcase Gallery below
+                            </p>
                             <div className={styles.gallery}>
                                 <Upload
                                     size="140px"
@@ -177,7 +185,7 @@ const ProfileEditor: React.FC<ProfileEditorProps> = ({ profile, refetch, setOver
                     <p className={styles.label}>
                         {isHiring
                             ? "You are currently Hiring. Click below to cancel."
-                            : "You are currently Not Hiring. Click below to update."}
+                            : "You are Not Hiring. Click below to update."}
                     </p>
 
                     <label className={styles.checkBox}>

@@ -1,3 +1,19 @@
+.ProfileLoading {
+    animation: pulse 0.75s infinite;
+
+    @keyframes pulse {
+        0% {
+            filter: brightness(0.5);
+        }
+        50% {
+            filter: brightness(1);
+        }
+        100% {
+            filter: brightness(0.5);
+        }
+    }
+}
+
 .Profile {
     min-height: 10rem;
     background: var(--component);

@@ -1,0 +1,32 @@
+.ImageLoader {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    color: var(--subtitle);
+    font-size: 1.5rem;
+    text-align: center;
+    background: var(--component);
+    aspect-ratio: 1/1;
+    animation: pulse 1s infinite;
+
+    span {
+        display: block;
+        margin-bottom: 1rem;
+        font-size: 4rem;
+    }
+}
+
+@keyframes pulse {
+    0% {
+        background: rgba(0, 0, 0, 0.1);
+    }
+    50% {
+        background: var(--component);
+    }
+    100% {
+        background: rgba(0, 0, 0, 0.1);
+    }
+}

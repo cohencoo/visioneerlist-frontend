@@ -2,6 +2,7 @@ import React, { useRef } from "react"
 import { readableDateTime } from "../../../assets/utils"
 import styles from "./Listing.module.scss"
 import placeholderUser from "../../../assets/user.png"
+import ImageLoader from "../../../Dashboard/components/ImageLoader/ImageLoader"
 
 const Listing: React.FC<{ props: any }> = ({ props }) => {
     const description = useRef<HTMLParagraphElement>(null)
@@ -35,10 +36,10 @@ const Listing: React.FC<{ props: any }> = ({ props }) => {
                     )}
                 </p>
             </div>
-            <img
+            <ImageLoader
+                loadingStyles={{ maxHeight: "300px" }}
                 className={styles.attachment}
                 src={props.image || placeholderUser}
-                alt="Attachment"
             />
         </div>
     )
