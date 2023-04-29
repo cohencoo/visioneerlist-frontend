@@ -32,6 +32,9 @@ export function uuid() {
     })
 }
 
+export const numberInRange = (startIndex: number, endIndex: number) =>
+    Math.floor(Math.random() * (endIndex - startIndex + 1)) + startIndex
+
 export const capitalize = (text: string) =>
     text
         .split(" ")

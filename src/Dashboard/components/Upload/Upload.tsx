@@ -114,16 +114,15 @@ const Upload: React.FC<UploadProps> = ({ size, onImageUploaded, initialImage, cu
                     type="file"
                     onChange={handleFileInput}
                 />
-                <div
+                <img
+                    alt="Upload Preview"
+                    src={loadDelay ? loaderIcon : image || placeholderImage}
                     className={styles.preview}
                     style={{
-                        backgroundSize: loadDelay ? "4rem" : "cover",
-                        backgroundImage: loadDelay
-                            ? `url(${loaderIcon})`
-                            : `url(${image || placeholderImage})`,
+                        scale: loadDelay ? "0.3" : "1",
                         width: size || "20rem",
-                        height: size || "20rem",
-                        borderRadius: !customClass ? undefined : "10px 0 0 10px"
+                        height: !customClass ? "auto" : size || "20rem",
+                        borderRadius: !customClass ? undefined : "10px"
                     }}
                 />
                 <div

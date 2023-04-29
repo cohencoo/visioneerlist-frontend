@@ -48,7 +48,11 @@ const Profile: React.FC<ProfileProps> = ({ props, profiles, refetch, setOverlay,
                     {props.hiring && (
                         <div className={styles.hiring}>Actively Hiring • Apply here</div>
                     )}
-                    {props.boosted && <div className={styles.boosted}>Promoted</div>}
+                    {props.boosted && (
+                        <div className={styles.ribbon}>
+                            <span>Promoted</span>
+                        </div>
+                    )}
                 </div>
             </div>
             <div className={styles.information}>

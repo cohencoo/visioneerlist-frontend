@@ -138,6 +138,24 @@
         color: var(--subtitle);
     }
 
+    .labelWarning {
+        background: #99601030;
+        padding: 1rem;
+        border-radius: 10px;
+        margin-top: 1rem;
+        color: white;
+        display: flex;
+        align-items: center;
+
+        p {
+            margin: 0;
+        }
+
+        span {
+            margin-right: 1rem;
+        }
+    }
+
     input {
         background: transparent;
         border: none;

@@ -20,6 +20,7 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
     const [verifying, setVerifying] = useState(false)
     const [ownerEmail, setOwnerEmail] = useState("")
     const [ownerPassword, setOwnerPassword] = useState("")
+    const [broadLocation, setBroadLocation] = useState(false)
 
     const [formData, setFormData] = useState({
         title: "",
@@ -155,11 +156,27 @@ const ProfileCreator: React.FC<ProfileCreatorProps> = ({ refetch, setOverlay }) 
                         <span className="material-symbols-rounded">location_on</span>
                         <input
                             maxLength={300}
-                            onChange={(e) => handleInputChange(e.target.name, e.target.value)}
+                            onChange={(e) => {
+                                if (e.target.value.toLocaleLowerCase() === "australia") {
+                                    setBroadLocation(true)
+                                } else setBroadLocation(false)
+                                handleInputChange(e.target.name, e.target.value)
+                            }}
                             placeholder="Location"
                             name="location"
                             type="location"
                         />
+                    </div>
+                    <div
+                        className={styles.labelWarning}
+                        style={{
+                            display: broadLocation ? undefined : "none"
+                        }}>
+                        <span className="material-symbols-rounded">info</span>
+                        <p>
+                            It's easier for people to find you, if you pick a more specific
+                            location.
+                        </p>
                     </div>
                 </div>
 

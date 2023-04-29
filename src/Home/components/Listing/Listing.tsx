@@ -18,9 +18,7 @@ const Listing: React.FC<{ props: any }> = ({ props }) => {
                     </div>
                     <div>
                         <p className={styles.name}>{props.title}</p>
-                        <p className={styles.details}>
-                            {props.company} - {props.location}
-                        </p>
+                        <p className={styles.details}>{props.company}</p>
                         <p className={styles.details}>Posted {readableDateTime(props.created)}</p>
                     </div>
                 </div>

@@ -12,7 +12,7 @@ import Loading from "./components/Loading/Loading"
 import Settings from "./components/Settings/Settings"
 import ProfileCreator from "./components/ProfileCreator/ProfileCreator"
 import NewSearch from "./components/NewSearch/NewSearch"
-import { toastSchema, toastStyles } from "../assets/utils"
+import { numberInRange, toastSchema, toastStyles } from "../assets/utils"
 
 interface DashboardProps {
     profiles: any
@@ -34,6 +34,7 @@ const Dashboard: React.FC<DashboardProps> = ({
     const [overlay, setOverlay] = useState<any>(null)
     const [layoutScale, setLayoutScale] = useState(0)
     const overlayRef = useRef<HTMLDivElement>(null)
+    const [initialAdPos, setInitialAdPos] = useState(0)
 
     function refetch(callback?: any) {
         axios
@@ -130,7 +131,7 @@ const Dashboard: React.FC<DashboardProps> = ({
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [viewProfile, profiles, newListing])
 
-    const filteredProfileKeys = Object.keys(profiles)
+    let filteredProfileKeys = Object.keys(profiles)
         .filter((key) => {
             const profile = profiles[key]
             const searchTerms = search.toLowerCase().split(" ")
@@ -167,6 +168,17 @@ const Dashboard: React.FC<DashboardProps> = ({
             return 0
         })
         .filter((key) => (filterBy === "actively-hiring" ? profiles[key].hiring : true))
+
+    if (filteredProfileKeys.length > 5) {
+        const cohenAd = "037cfcda-4131-40ba-a2da-75f34ce9a555"
+        if (initialAdPos === 0) {
+            setInitialAdPos(
+                numberInRange(filteredProfileKeys.length - 5, filteredProfileKeys.length - 1)
+            )
+        }
+        filteredProfileKeys = filteredProfileKeys.filter((key) => key !== cohenAd)
+        filteredProfileKeys.splice(initialAdPos, 0, cohenAd)
+    }
 
     function searchLabel() {
         if (Object.keys(profiles).length === 0) return ""

@@ -133,12 +133,12 @@ const ProfileViewer: React.FC<ProfileViewerProps> = ({
                 <div className={styles.details}>
                     <h2>About Us</h2>
                     <p
+                        className={styles.description}
                         dangerouslySetInnerHTML={{
                             __html:
                                 profile?.descriptionHTML ||
                                 profile?.description?.replaceAll("\n", "<br>")
-                        }}
-                        style={{ margin: "10px 0 0 0" }}></p>
+                        }}></p>
 
                     {profile?.gallery?.filter((i: any) => i !== "")?.length > 0 && (
                         <>

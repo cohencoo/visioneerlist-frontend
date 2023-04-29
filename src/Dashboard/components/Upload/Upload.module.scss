@@ -8,6 +8,7 @@
         border-radius: 10px;
         display: flex;
         align-items: center;
+        padding: 5px;
 
         .uploadMemo {
             margin: 0 1rem;
@@ -30,6 +31,7 @@
         display: flex;
         align-items: center;
         width: fit-content;
+        padding: 5px;
 
         .uploadMemo {
             display: none;
@@ -70,10 +72,7 @@
     .preview {
         transition: var(--transition);
         border-radius: 10px;
-        background-position: center;
-        background-size: cover;
-        background-repeat: no-repeat;
-        aspect-ratio: 1/1;
+        object-fit: contain;
 
         @media (max-width: 1168px) {
             & {

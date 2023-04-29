@@ -163,6 +163,20 @@
             margin: 0 0 2rem 0;
         }
 
+        .description {
+            margin: 1.5rem 0 0 0;
+
+            h1,
+            h2,
+            h3 {
+                margin: 10px 0;
+            }
+            p,
+            div {
+                margin: 0;
+            }
+        }
+
         .gallery {
             margin: 1rem 0;
             height: 14rem;

@@ -101,7 +101,7 @@ const Settings: React.FC<SettingsProps> = ({ profiles, refetch, setOverlay, newP
                     password: passwordRef.current.value
                 })
                 .then((res) => {
-                    if (id) {
+                    if (id && res.data.profiles.includes(id)) {
                         setOverlay(
                             <ProfileEditor
                                 refetch={refetch}
